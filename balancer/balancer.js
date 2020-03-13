@@ -1,5 +1,5 @@
 var Raven = require("raven");
-Raven.config('https://d5d320a2103349b083fa08f8485c5c31@sentry.io/301673').install();
+Raven.config('').install();
 
 var fs = require("fs");
 var express = require("express");
