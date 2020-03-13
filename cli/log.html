@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>io1-log</title>
+        <meta charset="utf-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <script src="data.js"></script>
+    </head>
+    <body>
+        <h1 style="font-family:Arial;">
+            io1-log
+        </h1>
+    </body>
+    <script>
+        var regionNames = [
+            "Dallas",
+            "Atlanta",
+            "London",
+            "Tokyo",
+            "Newark",
+            "Singapore",
+            "Frankfurt",
+            "Fremont"
+        ];
+
+        var dates = [];
+        var datasets = [];
+        var labels = [
+            {
+                name: "players",
+                color: "#00f"
+            },
+            {
+                name: "capacity",
+                color: "#0f0"
+            },
+            {
+                name: "servers",
+                color: "#f0f"
+            },
+            {
+                name: "denied",
+                color: "#f00"
+            }
+        ];
+
+        for (var i = -1; i < regionNames.length; i++) {
+            datasets.push([]);
+            for (var j = 0; j < labels.length; j++) {
+                var name = "Total";
+                if (i > -1) {
+                    name = regionNames[i];
+                }
+                var label = name + " " + labels[j].name;
+                datasets[i + 1].push({
+                    label: label,
+                    data: [],
+                    borderColor: labels[j].color,
+                    borderWidth: 3
+                });
+            }
+        }
+
+        for (var i = 0; i < data.length; i++) {
+            var a = data[i].split("=>");
+            var date = a[0];
+            a.shift();
+            var d = JSON.parse(a.join(""));
+            dates.push(date);
+            datasets[0][0].data.push(d.total);
+            datasets[0][1].data.push(d.max);
+            datasets[0][2].data.push(d.servers);
+            datasets[0][3].data.push(d.denied);
+            var j = 1;
+            for (var r in d.regions) {
+                datasets[j][0].data.push(d.regions[r].players);
+                datasets[j][1].data.push(d.regions[r].max);
+                datasets[j][2].data.push(d.regions[r].servers);
+                datasets[j][3].data.push(d.regions[r].denied);
+                j++;
+            }
+        }
+
+        for (var i = -1; i < regionNames.length; i++) {
+            var canvas = document.createElement("canvas");
+            canvas.width = 600;
+            canvas.height = 400;
+            document.body.appendChild(canvas);
+
+            var chart = new Chart(canvas, {
+                type: "line",
+                data: {
+                    labels: dates,
+                    datasets: datasets[i + 1]
+                },
+                options: {
+                    responsive: false,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    </script>
+</html>

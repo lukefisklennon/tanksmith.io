@@ -1,0 +1,44 @@
+===== Changelog =====
+
+Note: all updates take up to 24 hours to fully deploy
+
+2.13 (October 4, 2018)
+  - Battle Royale mode
+
+2.11 (June 5, 2018)
+  - Players are protected from taking damage for 30 seconds after spawning in
+
+2.10 (June 2, 2018)
+  - Fixed a problem where some units are greyed out
+  - Prevented building when at maximum unit number (fixes stuck-when-building)
+  - Units should now not be destroyed when the map shrinks
+
+2.9 (May 29, 2018)
+  - Larger tanks are slower
+  - Increased bullet speed and range
+  - Increased field-of-view for large players
+  - Decreased push-back of triangles
+
+2.6 (May 21, 2018)
+  - Bullet speed relative to unit
+  - Slightly smaller map size
+
+2.5 (May 20, 2018)
+  - Reduced knock-back of bullets
+
+2.4 (May 19, 2018)
+  - Fixed resource glitch
+  - Increased the number of triangles
+
+2.3 (May 18, 2018)
+  - Larger map size
+  - Removed booster unit
+
+2.0 (May 18, 2018)
+  - Initial release
+
+1.x (August 26, 2017)
+  - Beta version
+
+0.x (July 4, 2017)
+  - Alpha version

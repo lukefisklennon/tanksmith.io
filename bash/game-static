@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd ..
+sudo forever start static.js
+cd balancer
+forever start balancer.js

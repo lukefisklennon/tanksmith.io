@@ -1,0 +1,48 @@
+{
+  "name": "io.ioninja.io1",
+  "version": "1.0.0",
+  "displayName": "io1",
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-battery-status": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-media-capture": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-dialogs": {},
+      "cordova-plugin-file": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-globalization": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-vibration": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-admob-sdk": {
+        "PLAY_SERVICES_VERSION": "11.0.4"
+      },
+      "cordova-plugin-admob-free": {}
+    }
+  },
+  "dependencies": {
+    "cordova-admob-sdk": "^0.16.0",
+    "cordova-android": "~6.3.0",
+    "cordova-plugin-admob-free": "file:../../cordova-plugin-admob-free",
+    "cordova-plugin-battery-status": "~1.2.4",
+    "cordova-plugin-camera": "~2.4.1",
+    "cordova-plugin-device": "~1.1.6",
+    "cordova-plugin-dialogs": "~1.3.3",
+    "cordova-plugin-file": "~4.3.3",
+    "cordova-plugin-geolocation": "~2.4.3",
+    "cordova-plugin-globalization": "~1.0.7",
+    "cordova-plugin-inappbrowser": "~1.7.1",
+    "cordova-plugin-media-capture": "~1.4.3",
+    "cordova-plugin-network-information": "~1.3.3",
+    "cordova-plugin-splashscreen": "~5.0.2",
+    "cordova-plugin-vibration": "~2.1.5",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "cordova-promise-polyfill": "0.0.2"
+  }
+}

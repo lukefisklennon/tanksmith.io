@@ -1,0 +1,68 @@
+{
+	"regions": [
+		{
+			"name": "dallas",
+			"lat": 32.7767,
+			"long": -96.797,
+			"timezone": "+5",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "atlanta",
+			"lat": 33.749,
+			"long": -84.388,
+			"timezone": "+4",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "london",
+			"lat": 51.5074,
+			"long": -0.1278,
+			"timezone": "-1",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "tokyo",
+			"lat": 35.6895,
+			"long": 139.6917,
+			"timezone": "-9",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "newark",
+			"lat": 40.7357,
+			"long": -74.1724,
+			"timezone": "+4",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "singapore",
+			"lat": 1.3521,
+			"long": 103.8198,
+			"timezone": "-8",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "frankfurt",
+			"lat": 50.1109,
+			"long": 8.6821,
+			"timezone": "-2",
+			"hour": 2,
+			"servers": []
+		},
+		{
+			"name": "fremont",
+			"lat": 37.5483,
+			"long": -121.9886,
+			"timezone": "+7",
+			"hour": 7,
+			"servers": []
+		}
+	]
+}

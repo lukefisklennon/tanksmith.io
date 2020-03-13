@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Sending drain signal to server"
+echo 0 > /tmp/game

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo "Killing game loop"
+for pid in `pidof bash`
+do
+    if [ $pid != $$ ] || ( (( $# > 0 )) && [ $pid != $1 ] )
+    then
+        kill $pid
+    fi
+done
+echo "Killing game server"
+killall a.out
