@@ -15,7 +15,7 @@ Tanksmith.io is a multiplayer browser game, where players compete in real-time f
 
 As an “io game”, Tanksmith.io is designed to be quick and easy to play, where the game can be loaded in a browser, played with a single click and no login required. It is also available for free for Android devices.
 
-While multiplayer servers create ongoing costs, I place ads on the webpage to generate revenue and provide a profit. The game has been highly successful, having had **1.5 million players** in the 2 years since release, as well as 100 thousand downloads for Android and 10 thousand dollars in revenue.
+While multiplayer servers create ongoing costs, I place ads on the webpage to generate revenue and provide a profit. The game has been highly successful, having had 1.5 million players in the 2 years since release, as well as 100 thousand downloads for Android and 10 thousand dollars in revenue.
 
 Tanksmith.io can be found at this web address: http://tanksmith.io/ 
  
