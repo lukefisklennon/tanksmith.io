@@ -5,6 +5,8 @@
 
 > Please be lenient on my somewhat haphazard code style (e.g. single files with 3k lines of code!) as I was only 15 at the time, and I have since improved as a programmer.
 
+> Most important files: /main.cpp (backend), /public/2.13.js (frontend)
+
 Screenshot of Tanksmith.io gameplay:
 
 <img src="https://raw.githubusercontent.com/lukefisklennon/tanksmith.io/master/brand/yt-0.png" width="350" />
