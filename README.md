@@ -5,7 +5,7 @@
 
 > Please be lenient on my somewhat haphazard code style (e.g. single files with 3k lines of code!) as I was only 15 at the time, and I have since improved as a programmer.
 
-> Most important files: [main.cpp](https://github.com/lukefisklennon/tanksmith.io/blob/master/main.cpp) (backend), [public/2.13.js](https://github.com/lukefisklennon/tanksmith.io/blob/master/public/2.13.js) (frontend)
+> Most important files: [public/2.13.js](https://github.com/lukefisklennon/tanksmith.io/blob/master/public/2.13.js) (frontend), [main.cpp](https://github.com/lukefisklennon/tanksmith.io/blob/master/main.cpp) (backend), [balancer/balancer.js](https://github.com/lukefisklennon/tanksmith.io/blob/master/balancer/balancer.js] (load balancer)
 
 Screenshot of Tanksmith.io gameplay:
 
