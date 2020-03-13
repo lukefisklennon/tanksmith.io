@@ -1,0 +1,220 @@
+RUN GAME SERVER IN SUDO BECAUSE IT LISTENS ON PORT 80 (e.g. io1 go debug, io1 run)
+
+WHEN DEPLOYING:
+	- Compile game (with debug mode)
+	- Deploy game binary
+	- DEPLOY STATIC FILES
+
+REMEMBER TO UPLOAD SERVERLIST.JS WHEN UPDATING BALANCER
+CORS NOT WORKING?
+
+To do:
+	- Mobile preroll not centered
+	- Don't show an interstitial every time in the app
+	- Show stats at end of game
+	- Upgrade/delete shortcuts
+	- Bomb Unit
+	- Tip scaling
+	- If you press repetitively the button that appears below that gives you the menu of cells and parts that you can acquire (either the one on the left or the one on the right) and then you release it, it will continue to be pressed and you will not be able to manage the menu.
+	- Actually remove booster unit
+	- Party: proper player counter / ad consent / actual versionElement
+	- Battle royale mode
+	- Reward resources for build units too
+
+Battle royale:
+	- Remove waiting for x players message when switching to ffa
+	- # FIX TOTAL JOINED
+	- Shapes destroyed at edge
+	- # Map feels empty
+	- # Doesn't always show "Victory royale!"
+
+Ideas:
+	- Bomb Unit
+	- Battle royale mode
+
+Sites:
+	- Kizi
+	- Poki
+
+YouTubers:
+	- Smash
+	- Slith
+	- Arena closer
+	- Godenot
+	- MasterOv
+	- CookieGuy
+	- Laim
+	- eXistenZ
+	- iHASYOU
+	- Duckio
+	- iXPLODE
+	- Baxtrix [EN]
+	- LB
+	- Bodil40
+	- Nation
+	- Fortish
+	- SICKmania
+	- Cryptic
+	- Truebizcuit
+	- Blitz
+	- BaronVonGames
+	- ProjectJamesify
+	- NBK razor
+
+Manual creation:
+	- 0 2 * * * /bin/game-update && /bin/game-drain
+	- Etc/GMT+7
+
+Notes:
+	- Start balancer: forever start -w --watchIgnore '*.log' --watchIgnore 'servers.json' -o balancer.log -e error.log balancer.js
+	- Start longview: systemctl start longview
+	- Restart cron: service cron restart
+	- Build for Android: phonegap build android --release -- --keystore=../io1_keystore.keystore --storePassword=password --alias=io1_alias --password=password
+	- AdMob ID: ca-app-pub-5728247954177044~7236949357
+	- Debugging: gdb -batch -ex "run" -ex "bt" ${my_program} 2>&1 | grep -v ^"No stack."$
+	- Local testing: http://localhost/#7f000001
+	- Connected users: netstat -anpt 2>&1 | tail -n +5 | sort -k7,7 -k 6,6
+	- Godenot published at 12am-1am
+	- Patron server: 45.33.61.138 (#2d213d8a)
+	- Bot server: 50.116.14.28
+	- Patron compile: g++ -g -std=c++11 -w -pthread patron.cpp -lb2 -luWS -lssl -lcrypto -lz -luv -o patron.out
+	- Sandbox: 173.255.219.34 (#adffdb22)
+
+Installing uWS:
+	- g++ -std=c++11 -O3 -I src -shared -fPIC src/Extensions.cpp src/Group.cpp src/Networking.cpp src/Hub.cpp src/Node.cpp src/WebSocket.cpp src/HTTPSocket.cpp src/Socket.cpp src/Epoll.cpp -s -o libuWS.so
+	- Copy output to /usr/lib and GitHub
+	- Copy src to /usr/include/uWS
+
+Bugs:
+    - std::string::length() const ()
+    - epoll_wait () at ../sysdeps/unix/syscall-template.S:81
+    - https://askubuntu.com/questions/620317/apt-get-update-stuck-connecting-to-security-ubuntu-com
+
+	Thread 1 "a.out" received signal SIGSEGV, Segmentation fault.
+	0x0000000000404fd2 in Unit::handleHealth (this=0x90fb50, damage=1.25, player=0x662d60) at main.cpp:1676
+	1676    main.cpp: No such file or directory.
+	#0  0x0000000000404fd2 in Unit::handleHealth (this=0x90fb50, damage=1.25, player=0x662d60) at main.cpp:1676
+	#1  0x0000000000404d91 in handleHealthGlobal (type=1, object=0x90fb50, damage=1.25, player=0x662d60) at main.cpp:1643
+	#2  0x0000000000404dfe in Object::bulletHit (this=0x90fb50, bullet=0x767f90) at main.cpp:1651
+	#3  0x000000000040e212 in contactListener::BeginContact (this=0x7fffffffe410, contact=0x838f90) at main.cpp:1789
+	#4  0x00007ffff7bc0e75 in b2Contact::Update(b2ContactListener*) () from /usr/lib/libb2.so
+	#5  0x00007ffff7bbbd63 in b2ContactManager::Collide() () from /usr/lib/libb2.so
+	#6  0x00007ffff7bbe383 in b2World::Step(float, int, int) () from /usr/lib/libb2.so
+	#7  0x0000000000406ae6 in main (argc=1, argv=0x7fffffffecb8) at main.cpp:2171
+	No locals.
+	this = 0x90fb50
+	damage = 1.25
+	player = 0x662d60
+	$1 = (Unit * const) 0x90fb50
+
+Description:
+    - When a player visits the page, they are prompted to enter a nickname. Then, they click the play button. This enters them into a large arena, in which they can move around. They start of by clicking to fire bullets at floaters (small triangles). These floaters, upon being destroyed, give the player an amount of resource of its own type. Better resource floaters are harder to destroy, but those resources can be used to buy better units. These units can be bought and added onto the craft, attached to the only unit to start of with: the core. In this way, they can build their ship, and then battle other players. If they are ranked in the top 10, they appear on the leaderboard which all players in the arena can see. When their units are dealt damage (by bullets or collision), they lose health. If a unit gets to 0 health, it gets destroyed. They player is out of the game once their core unit is destroyed, but can respawn from scratch after being eliminated.
+    Note: the HP stats below are relative to each other, and are not absolute values.
+
+Controls:
+    - WASD to move craft
+    - Mouse move to aim
+    - Left mouse click to fire
+    - Right mouse drag to rotate craft
+    - E for auto-fire
+    - Click on unit icon at bottom to select
+        - Click again to place
+    - Click on unit in craft to get options
+        - Upgrade button (U key)
+        - Destroy button (X key)
+
+Resources:
+    - Wood
+    - Iron
+    - Gold
+    - Diamond
+    - Amethyst
+
+Units:
+    - Core
+        - 4 HP
+        - Basic gun
+    - Basic unit
+        - 2 HP
+    - Basic turret
+        - 1 HP
+        - Basic gun
+    - Twin turret
+        - 1 HP
+        - 2 basic guns
+    - Sniper turret
+        - 1 HP
+        - Sniper gun
+            - Long range
+            - High bullet speed
+            - Low reload speed
+    - Cannon turret
+        - 1 HP
+        - Cannon gun
+            - High damage
+            - Long range
+            - Low reload speed
+    - Mine turret
+        - 1 HP
+        - Mine gun
+            - Shoots mines which stop
+            - Mines are activated by touch
+            - Create a blast in radius
+    - Healing unit
+        - Heals connected and touching friendly units
+    - Alchemy Lab
+        - Converts lower resources to it's resource
+    - Booster unit
+        - Increases overall movement speed
+    - Shield generator
+        - Creates a protective radius
+            - Blocks and destroys bullets
+            - Weakened by damage
+            - Shrinks when weakened
+            - Grows over time to maximum radius
+    - Spike
+        - Mounts upon other units
+        - Cannot be built upon
+        - Deals damage to enemy units upon touch
+
+Floaters:
+    - Small, medium and large sizes
+    - When destroyed:
+        - Large spawns medium
+        - Medium spawns small
+        - All give resource points of its type
+
+Visual:
+    - All
+        - Colour of material (tier)
+        - Darker border
+    - Standard unit
+        - Circle shaped
+    - Standard gun
+        - Light grey
+    - Floater
+        - Triangle shaped
+    - Core
+        - Octagonal border
+    - Twin turret
+        - Both guns thinner
+        - Attached to centre circle
+    - Sniper turret
+        - Longer gun
+    - Cannon turret
+        - Wider gun
+        - End wider that start of gun
+    - Mine turret
+        - Gun thinnest in middle
+        - Gun widest at end
+    - Healing unit
+        - Light red plus symbol
+    - Alchemy Lab
+        - Three light blue orbs surrounding centre
+    - Booster unit
+        - Spinning gear
+    - Shield generator
+        - Spinning coil
+        - The shield is a wobbling circle
+    - Spike
+        - Small triangle
