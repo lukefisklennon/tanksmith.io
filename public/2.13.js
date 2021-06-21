@@ -2045,7 +2045,7 @@ var go = function(ip, mode) {
 			storage.name = nameBox.value;
 			saveStorage();
 			var string = btoa(unescape(encodeURIComponent(nameBox.value)));
-		    var charList = string.substring(0, nameMax).split("");
+			var charList = string.substring(0, nameMax).split("");
 			var buffer = new ArrayBuffer(byte + byte + byte + charList.length);
 			var view = new DataView(buffer, 0);
 			view.setUint8(0, clientCode.play, true);
@@ -2055,9 +2055,9 @@ var go = function(ip, mode) {
 			// for (var i = 0; i < nameBox.value.length; i++) {
 			// 	view.setUint8(offset + i, nameBox.value.charCodeAt(i), true);
 			// }
-		    for (var i = 0; i < charList.length; i++) {
+			for (var i = 0; i < charList.length; i++) {
 				view.setUint8(offset + i, charList[i].charCodeAt(0), true);
-		    }
+			}
 			ioSend(buffer);
 			if (typeof players[self] !== "undefined") {
 				players[self].name = filter(nameBox.value);
@@ -2075,7 +2075,7 @@ var go = function(ip, mode) {
 		function play() {
 			if (io) {
 				// if (!mobile) {
-			    if (parse_query_string(window.location.search.substring(1)).source != "app" && window.location.hostname != "localhost" && (playCount - 1) % 3 == 0) {
+				if (parse_query_string(window.location.search.substring(1)).source != "app" && window.location.hostname != "localhost" && (playCount - 1) % 3 == 0) {
 					showVideoAd();
 				} else {
 					continueToPlay();
@@ -3086,8 +3086,8 @@ var go = function(ip, mode) {
 		}
 
 		function shadeColor(color, percent) {
-		    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-		    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+			var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+			return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
 		}
 
 		function blurFilter(a) {
@@ -3151,20 +3151,20 @@ var go = function(ip, mode) {
 		}
 
 		function css(el) {
-		    var sheets = document.styleSheets, ret = [];
-		    el.matches = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector
-		        || el.msMatchesSelector || el.oMatchesSelector;
-		    for (var i in sheets) {
+			var sheets = document.styleSheets, ret = [];
+			el.matches = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector
+				|| el.msMatchesSelector || el.oMatchesSelector;
+			for (var i in sheets) {
 				try {
-			        var rules = sheets[i].rules || sheets[i].cssRules;
-			        for (var r in rules) {
-			            if (el.matches(rules[r].selectorText)) {
-			                ret.push(rules[r].cssText);
-			            }
-			        }
+					var rules = sheets[i].rules || sheets[i].cssRules;
+					for (var r in rules) {
+						if (el.matches(rules[r].selectorText)) {
+							ret.push(rules[r].cssText);
+						}
+					}
 				} catch(e) {};
-		    }
-		    return ret;
+			}
+			return ret;
 		}
 
 		function filter(t) {
@@ -3346,8 +3346,8 @@ var go = function(ip, mode) {
 				io.close();
 			}
 			if (typeof Raven !== "undefined") Raven.captureException(e);
-	        window.location.reload(true);
-	    }, 1000);
+			window.location.reload(true);
+		}, 1000);
 		// throw e;
 	}
 }
