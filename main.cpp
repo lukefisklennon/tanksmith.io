@@ -161,41 +161,41 @@ class Floater;
 class Player;
 
 typedef struct _pos {
-    float x;
-    float y;
+	float x;
+	float y;
 } pos;
 
 typedef struct _clientKeys {
-    bool w;
-    bool a;
-    bool s;
-    bool d;
+	bool w;
+	bool a;
+	bool s;
+	bool d;
 } clientKeys;
 
 typedef struct _dataPointer {
-    int type;
-    void *data;
+	int type;
+	void *data;
 } dataPointer;
 
 typedef struct _unitDef {
-    int cost;
-    float size;
-    bool manualActivate;
-    bool autoActivate;
-    unsigned long activationReloadTime;
-    bool buildable;
-    float hp;
-    float regen;
-    float bulletDamage;
-    float bulletSize;
-    float bulletSpeed;
-    float bulletRange;
-    float collisionDamage;
-    float heal;
-    float speedBoost;
-    float speedBoostUpgrade;
-    int shape;
-    float spinAnimation;
+	int cost;
+	float size;
+	bool manualActivate;
+	bool autoActivate;
+	unsigned long activationReloadTime;
+	bool buildable;
+	float hp;
+	float regen;
+	float bulletDamage;
+	float bulletSize;
+	float bulletSpeed;
+	float bulletRange;
+	float collisionDamage;
+	float heal;
+	float speedBoost;
+	float speedBoostUpgrade;
+	int shape;
+	float spinAnimation;
 } unitDef;
 
 typedef int materialCluster[MATERIAL_NUM];
@@ -270,257 +270,257 @@ int fspi = 0; // Floater spawn series index
 byte floaterSpawnSeries[FLOATER_SPAWN_SERIES_LENGTH];
 
 unitDef unitDefs[UNIT_TYPE_NUM] = {
-    { // Core
-        24, // cost
-        1.2, // size
-        true, // manual activate
-        false, // auto activate
-        500, // reload time
-        true, // buildable
-        18, // hp
-        0.0003, // regen
-        0.5, // bullet damage
-        0.37, // bullet size
-        11, // bullet speed
-        12, // bullet range
-        0.2, // collision damage
-        -1, // heal
-        1, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Basic unit
-        6, // cost
-        1, // size
-        false, // manual activate
-        false, // auto activate
-        0, // reload time
-        true, // buildable
-        12, // hp
-        0.0003, // regen
-        -1, // bullet damage
-        -1, // bullet size
-        -1, // bullet speed
-        -1, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Basic turret
-        8, // cost
-        1, // size
-        true, // manual activate
-        false, // auto activate
-        500, // reload time
-        true, // buildable
-        6, // hp
-        0.0003, // regen
-        0.25, // bullet damage
-        0.37, // bullet size
-        11, // bullet speed
-        12, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Sniper turret
-        10, // cost
-        1, // size
-        true, // manual activate
-        false, // auto activate
-        800, // reload time
-        true, // buildable
-        6, // hp
-        0.0003, // regen
-        0.25, // bullet damage
-        0.3, // bullet size
-        12, // bullet speed
-        15, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Twin turret
-        10, // cost
-        1, // size
-        true, // manual activate
-        false, // auto activate
-        250, // reload time
-        true, // buildable
-        7, // hp
-        0.0003, // regen
-        0.2, // bullet damage
-        0.2, // bullet size
-        11, // bullet speed
-        12, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Cannon turret
-        18, // cost
-        1, // size
-        true, // manual activate
-        false, // auto activate
-        700, // reload time
-        true, // buildable
-        8, // hp
-        0.0003, // regen
-        0.7, // bullet damage
-        0.5, // bullet size
-        10, // bullet speed
-        10, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Healing unit
-        14, // cost
-        1, // size
-        false, // manual activate
-        true, // auto activate
-        3000, // reload time
-        true, // buildable
-        10, // hp
-        0.0003, // regen
-        -1, // bullet damage
-        -1, // bullet size
-        -1, // bullet speed
-        -1, // bullet range
-        0.1, // collision damage
-        1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Alchemy lab
-        20, // cost
-        1, // size
-        false, // manual activate
-        true, // auto activate
-        3000, // reload time
-        true, // buildable
-        10, // hp
-        0.0003, // regen
-        -1, // bullet damage
-        -1, // bullet size
-        -1, // bullet speed
-        -1, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Booster unit
-        12, // cost
-        1, // size
-        false, // manual activate
-        false, // auto activate
-        0, // reload time
-        true, // buildable
-        10, // hp
-        0.0003, // regen
-        -1, // bullet damage
-        -1, // bullet size
-        -1, // bullet speed
-        -1, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0.1, // speed boost
-        0.05, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0.01 // spin animation
-    },
-    { // Octa Turret
-        16, // cost
-        1, // size
-        true, // manual activate
-        false, // auto activate
-        1500, // reload time
-        true, // buildable
-        8, // hp
-        0.0003, // regen
-        0.15, // bullet damage
-        0.2, // bullet size
-        11, // bullet speed
-        10, // bullet range
-        0.1, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_CIRCLE, // shape
-        0 // spin animation
-    },
-    { // Spike
-        8, // cost
-        0.5, // size
-        false, // manual activate
-        false, // auto activate
-        0, // reload time
-        false, // buildable
-        16, // hp
-        0.0003, // regen
-        -1, // bullet damage
-        -1, // bullet size
-        -1, // bullet speed
-        -1, // bullet range
-        0.4, // collision damage
-        -1, // heal
-        0, // speed boost
-        0, // speed boost upgrade
-        SHAPE_TRIANGLE, // shape
-        0 // spin animation
-    }
+	{ // Core
+		24, // cost
+		1.2, // size
+		true, // manual activate
+		false, // auto activate
+		500, // reload time
+		true, // buildable
+		18, // hp
+		0.0003, // regen
+		0.5, // bullet damage
+		0.37, // bullet size
+		11, // bullet speed
+		12, // bullet range
+		0.2, // collision damage
+		-1, // heal
+		1, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Basic unit
+		6, // cost
+		1, // size
+		false, // manual activate
+		false, // auto activate
+		0, // reload time
+		true, // buildable
+		12, // hp
+		0.0003, // regen
+		-1, // bullet damage
+		-1, // bullet size
+		-1, // bullet speed
+		-1, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Basic turret
+		8, // cost
+		1, // size
+		true, // manual activate
+		false, // auto activate
+		500, // reload time
+		true, // buildable
+		6, // hp
+		0.0003, // regen
+		0.25, // bullet damage
+		0.37, // bullet size
+		11, // bullet speed
+		12, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Sniper turret
+		10, // cost
+		1, // size
+		true, // manual activate
+		false, // auto activate
+		800, // reload time
+		true, // buildable
+		6, // hp
+		0.0003, // regen
+		0.25, // bullet damage
+		0.3, // bullet size
+		12, // bullet speed
+		15, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Twin turret
+		10, // cost
+		1, // size
+		true, // manual activate
+		false, // auto activate
+		250, // reload time
+		true, // buildable
+		7, // hp
+		0.0003, // regen
+		0.2, // bullet damage
+		0.2, // bullet size
+		11, // bullet speed
+		12, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Cannon turret
+		18, // cost
+		1, // size
+		true, // manual activate
+		false, // auto activate
+		700, // reload time
+		true, // buildable
+		8, // hp
+		0.0003, // regen
+		0.7, // bullet damage
+		0.5, // bullet size
+		10, // bullet speed
+		10, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Healing unit
+		14, // cost
+		1, // size
+		false, // manual activate
+		true, // auto activate
+		3000, // reload time
+		true, // buildable
+		10, // hp
+		0.0003, // regen
+		-1, // bullet damage
+		-1, // bullet size
+		-1, // bullet speed
+		-1, // bullet range
+		0.1, // collision damage
+		1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Alchemy lab
+		20, // cost
+		1, // size
+		false, // manual activate
+		true, // auto activate
+		3000, // reload time
+		true, // buildable
+		10, // hp
+		0.0003, // regen
+		-1, // bullet damage
+		-1, // bullet size
+		-1, // bullet speed
+		-1, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Booster unit
+		12, // cost
+		1, // size
+		false, // manual activate
+		false, // auto activate
+		0, // reload time
+		true, // buildable
+		10, // hp
+		0.0003, // regen
+		-1, // bullet damage
+		-1, // bullet size
+		-1, // bullet speed
+		-1, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0.1, // speed boost
+		0.05, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0.01 // spin animation
+	},
+	{ // Octa Turret
+		16, // cost
+		1, // size
+		true, // manual activate
+		false, // auto activate
+		1500, // reload time
+		true, // buildable
+		8, // hp
+		0.0003, // regen
+		0.15, // bullet damage
+		0.2, // bullet size
+		11, // bullet speed
+		10, // bullet range
+		0.1, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_CIRCLE, // shape
+		0 // spin animation
+	},
+	{ // Spike
+		8, // cost
+		0.5, // size
+		false, // manual activate
+		false, // auto activate
+		0, // reload time
+		false, // buildable
+		16, // hp
+		0.0003, // regen
+		-1, // bullet damage
+		-1, // bullet size
+		-1, // bullet speed
+		-1, // bullet range
+		0.4, // collision damage
+		-1, // heal
+		0, // speed boost
+		0, // speed boost upgrade
+		SHAPE_TRIANGLE, // shape
+		0 // spin animation
+	}
 };
 
 class Object {
 public:
-    unsigned short id;
-    float x;
-    float y;
-    int type;
-    byte material;
-    int bodyType;
-    float rotation;
-    float size;
-    float density;
-    float friction;
-    float linearDamping;
-    float angularDamping;
-    bool active;
-    b2Body *body;
+	unsigned short id;
+	float x;
+	float y;
+	int type;
+	byte material;
+	int bodyType;
+	float rotation;
+	float size;
+	float density;
+	float friction;
+	float linearDamping;
+	float angularDamping;
+	bool active;
+	b2Body *body;
 
-    void createBody();
+	void createBody();
 
-    bool updateBody() {
+	bool updateBody() {
 		bool touchingWall = false;
-        if (body == NULL) {
-            createBody();
-        }
-        b2Vec2 position = body->GetPosition();
-    	rotation = body->GetAngle();
-        active = body->IsAwake();
-        x = position.x;
-        y = position.y;
+		if (body == NULL) {
+			createBody();
+		}
+		b2Vec2 position = body->GetPosition();
+		rotation = body->GetAngle();
+		active = body->IsAwake();
+		x = position.x;
+		y = position.y;
 		bool collide;
 		if (mode == MODE_FFA) {
 			collide = (type != TYPE_BULLET);
@@ -528,231 +528,231 @@ public:
 			collide = (type != TYPE_BULLET && type != TYPE_UNIT);
 		}
 
-        if (x < -width / 2 + size || x > width / 2 - size || y < -height / 2 + size || y > height / 2 - size) {
+		if (x < -width / 2 + size || x > width / 2 - size || y < -height / 2 + size || y > height / 2 - size) {
 			touchingWall = true;
 			if (collide) {
-                b2Vec2 v = body->GetLinearVelocity();
-                if (x < -width / 2 + size) {
-                    x = -width / 2 + size;
-                    v.x = 0;
-                } else if (x > width / 2 - size) {
-                    x = width / 2 - size;
-                    v.x = 0;
-                }
-                if (y < -height / 2 + size) {
-                    y = -height / 2 + size;
-                    v.y = 0;
-                } else if (y > height / 2 - size) {
-                    y = height / 2 - size;
-                    v.y = 0;
-                }
-                body->SetTransform(b2Vec2(x, y), body->GetAngle());
-                body->SetLinearVelocity(v);
+				b2Vec2 v = body->GetLinearVelocity();
+				if (x < -width / 2 + size) {
+					x = -width / 2 + size;
+					v.x = 0;
+				} else if (x > width / 2 - size) {
+					x = width / 2 - size;
+					v.x = 0;
+				}
+				if (y < -height / 2 + size) {
+					y = -height / 2 + size;
+					v.y = 0;
+				} else if (y > height / 2 - size) {
+					y = height / 2 - size;
+					v.y = 0;
+				}
+				body->SetTransform(b2Vec2(x, y), body->GetAngle());
+				body->SetLinearVelocity(v);
 			}
-        }
+		}
 
 		return touchingWall;
-    }
+	}
 
-    void bulletHit(Bullet *bullet);
-    void collisionHit(int type, void *object);
+	void bulletHit(Bullet *bullet);
+	void collisionHit(int type, void *object);
 };
 
 class Bullet: public Object {
 public:
-    Player *owner;
-    b2Vec2 velocity;
-    float damage;
-    float ox;
-    float oy;
-    float range;
+	Player *owner;
+	b2Vec2 velocity;
+	float damage;
+	float ox;
+	float oy;
+	float range;
 
-    Bullet(Player *aowner, float ax, float ay, float avx, float avy, byte amaterial, float asize, float adamage, float arange) {
-        bdc++;
-        id = bdc;
-        owner = aowner;
-        x = ax;
-        y = ay;
-        ox = x;
-        oy = y;
-        range = arange;
-        b2Vec2 v;
-        v.x = avx;
-        v.y = avy;
-        velocity = v;
-        material = amaterial;
-        size = asize;
-        bodyType = SHAPE_CIRCLE;
-        density = BULLET_DENSITY;
-        friction = BULLET_FRICTION;
-        linearDamping = 0;
-        angularDamping = 0;
-        type = TYPE_BULLET;
-        damage = adamage;
+	Bullet(Player *aowner, float ax, float ay, float avx, float avy, byte amaterial, float asize, float adamage, float arange) {
+		bdc++;
+		id = bdc;
+		owner = aowner;
+		x = ax;
+		y = ay;
+		ox = x;
+		oy = y;
+		range = arange;
+		b2Vec2 v;
+		v.x = avx;
+		v.y = avy;
+		velocity = v;
+		material = amaterial;
+		size = asize;
+		bodyType = SHAPE_CIRCLE;
+		density = BULLET_DENSITY;
+		friction = BULLET_FRICTION;
+		linearDamping = 0;
+		angularDamping = 0;
+		type = TYPE_BULLET;
+		damage = adamage;
 
-        active = false;
-        body = NULL;
+		active = false;
+		body = NULL;
 
-        bullets.push_back(this);
-    }
+		bullets.push_back(this);
+	}
 
-    ~Bullet();
+	~Bullet();
 
-    bool update() {
-        bool touchingWall = updateBody();
+	bool update() {
+		bool touchingWall = updateBody();
 		if (mode == MODE_BR) {
 			touchingWall = false;
 		}
-        if (touchingWall || dfp(ox, oy, x, y) > range) {
-            delete this;
-            return false;
-        } else {
-            body->SetLinearVelocity(velocity);
-            return true;
-        }
-    }
+		if (touchingWall || dfp(ox, oy, x, y) > range) {
+			delete this;
+			return false;
+		} else {
+			body->SetLinearVelocity(velocity);
+			return true;
+		}
+	}
 };
 
 class Unit: public Object {
 public:
-    Player *owner;
-    Unit *parent;
-    byte unitType;
+	Player *owner;
+	Unit *parent;
+	byte unitType;
 	float ox;
 	float oy;
 	b2Vec2 v;
-    float angle;
-    unsigned long activationReloadTime;
-    unsigned long lastActivated;
-    bool buildable;
-    bool manualActivate;
-    bool autoActivate;
-    float hp;
-    float mhp;
-    float regen;
-    float bulletDamage;
-    float bulletSpeed;
-    float bulletRange;
-    float collisionDamage;
-    float heal;
-    float speedBoost;
-    float spinAnimation;
-    float angleFromParent;
-    b2Joint* parentJoint;
-    // recursive_mutex childrenUnitsMutex;
-    vector<Unit *> childrenUnits;
+	float angle;
+	unsigned long activationReloadTime;
+	unsigned long lastActivated;
+	bool buildable;
+	bool manualActivate;
+	bool autoActivate;
+	float hp;
+	float mhp;
+	float regen;
+	float bulletDamage;
+	float bulletSpeed;
+	float bulletRange;
+	float collisionDamage;
+	float heal;
+	float speedBoost;
+	float spinAnimation;
+	float angleFromParent;
+	b2Joint* parentJoint;
+	// recursive_mutex childrenUnitsMutex;
+	vector<Unit *> childrenUnits;
 
-    // Special
-    int lastFireSide;
-    byte alchemyCycle;
+	// Special
+	int lastFireSide;
+	byte alchemyCycle;
 
-    void updateStats();
+	void updateStats();
 
-    Unit(Player *aowner, Unit *aparent, float ax, float ay, float aangle, float aangleFromParent, byte atype, byte amaterial) {
-        udc++;
-        id = udc;
-        owner = aowner;
-        parent = aparent;
-        x = ax;
-        y = ay;
+	Unit(Player *aowner, Unit *aparent, float ax, float ay, float aangle, float aangleFromParent, byte atype, byte amaterial) {
+		udc++;
+		id = udc;
+		owner = aowner;
+		parent = aparent;
+		x = ax;
+		y = ay;
 		v = {0, 0};
-        angle = aangle;
-        type = TYPE_UNIT;
-        unitType = atype;
-        material = amaterial;
-        size = unitDefs[unitType].size;
-        bodyType = unitDefs[unitType].shape;
-        density = UNIT_DENSITY;
-        friction = UNIT_FRICTION;
-        linearDamping = UNIT_LINEAR_DAMPING;
-        angularDamping = UNIT_ANGULAR_DAMPING;
-        manualActivate = unitDefs[unitType].manualActivate;
-        autoActivate = unitDefs[unitType].autoActivate;
-        activationReloadTime = unitDefs[unitType].activationReloadTime;
-        lastActivated = 0;
-        buildable = unitDefs[unitType].buildable;
-        speedBoost = 0;
-        updateStats();
-        regen = unitDefs[unitType].regen;
-        bulletSpeed = unitDefs[unitType].bulletSpeed;
-        bulletRange = unitDefs[unitType].bulletRange;
-        angleFromParent = aangleFromParent;
+		angle = aangle;
+		type = TYPE_UNIT;
+		unitType = atype;
+		material = amaterial;
+		size = unitDefs[unitType].size;
+		bodyType = unitDefs[unitType].shape;
+		density = UNIT_DENSITY;
+		friction = UNIT_FRICTION;
+		linearDamping = UNIT_LINEAR_DAMPING;
+		angularDamping = UNIT_ANGULAR_DAMPING;
+		manualActivate = unitDefs[unitType].manualActivate;
+		autoActivate = unitDefs[unitType].autoActivate;
+		activationReloadTime = unitDefs[unitType].activationReloadTime;
+		lastActivated = 0;
+		buildable = unitDefs[unitType].buildable;
+		speedBoost = 0;
+		updateStats();
+		regen = unitDefs[unitType].regen;
+		bulletSpeed = unitDefs[unitType].bulletSpeed;
+		bulletRange = unitDefs[unitType].bulletRange;
+		angleFromParent = aangleFromParent;
 
-        active = false;
-        body = NULL;
-        parentJoint = NULL;
+		active = false;
+		body = NULL;
+		parentJoint = NULL;
 
-        // Special
-        lastFireSide = 1;
-        alchemyCycle = 0;
+		// Special
+		lastFireSide = 1;
+		alchemyCycle = 0;
 
-        //unitsMutex.lock();
-        units.push_back(this);
-        //unitsMutex.unlock();
-    }
+		//unitsMutex.lock();
+		units.push_back(this);
+		//unitsMutex.unlock();
+	}
 
-    ~Unit();
+	~Unit();
 
 	bool update();
-    void activate();
-    bool handleHealth(float damage, Player *player);
+	void activate();
+	bool handleHealth(float damage, Player *player);
 };
 
 class Floater: public Object {
 public:
-    float mhp;
-    float hp;
-    float regen;
-    float collisionDamage;
-    int sizeTier;
-    byte dyingStage;
-    unordered_set<Player *> viewedBy;
+	float mhp;
+	float hp;
+	float regen;
+	float collisionDamage;
+	int sizeTier;
+	byte dyingStage;
+	unordered_set<Player *> viewedBy;
 
-    Floater(byte amaterial, float ax, float ay) {
-        fdc++;
-        id = fdc;
+	Floater(byte amaterial, float ax, float ay) {
+		fdc++;
+		id = fdc;
 		x = ax;
 		y = ay;
-        sizeTier = 0;
-        float random = (float)(rand()) /(RAND_MAX / 100);
-        float chanceCounter = 0;
-        for (int i = 0; i < FLOATER_SIZE_NUM; i++) {
-            if (random > chanceCounter && random < chanceCounter + floaterSizeChances[i]) {
-                sizeTier = i;
-                break;
-            }
-            chanceCounter += floaterSizeChances[i];
-        }
-        size = floaterSizes[sizeTier];
-        material = amaterial;
-        bodyType = SHAPE_TRIANGLE;
-        density = FLOATER_DENSITY;
-        friction = FLOATER_FRICTION;
-        linearDamping = FLOATER_LINEAR_DAMPING;
-        angularDamping = FLOATER_ANGULAR_DAMPING;
-        type = TYPE_FLOATER;
+		sizeTier = 0;
+		float random = (float)(rand()) /(RAND_MAX / 100);
+		float chanceCounter = 0;
+		for (int i = 0; i < FLOATER_SIZE_NUM; i++) {
+			if (random > chanceCounter && random < chanceCounter + floaterSizeChances[i]) {
+				sizeTier = i;
+				break;
+			}
+			chanceCounter += floaterSizeChances[i];
+		}
+		size = floaterSizes[sizeTier];
+		material = amaterial;
+		bodyType = SHAPE_TRIANGLE;
+		density = FLOATER_DENSITY;
+		friction = FLOATER_FRICTION;
+		linearDamping = FLOATER_LINEAR_DAMPING;
+		angularDamping = FLOATER_ANGULAR_DAMPING;
+		type = TYPE_FLOATER;
 
-        hp = amountScale(FLOATER_HP *(sizeTier + 1), material);
-        regen = FLOATER_REGEN;
-        mhp = hp;
-        collisionDamage = FLOATER_COLLISION_DAMAGE;
+		hp = amountScale(FLOATER_HP *(sizeTier + 1), material);
+		regen = FLOATER_REGEN;
+		mhp = hp;
+		collisionDamage = FLOATER_COLLISION_DAMAGE;
 
-        active = false;
-        body = NULL;
-        dyingStage = 0;
+		active = false;
+		body = NULL;
+		dyingStage = 0;
 
-        //floatersMutex.lock();
-        floaters.push_back(this);
-        //floatersMutex.unlock();
-    }
+		//floatersMutex.lock();
+		floaters.push_back(this);
+		//floatersMutex.unlock();
+	}
 
-    ~Floater();
+	~Floater();
 
-    bool update(bool emitting) {
-        if (hp < mhp) {
-            hp += (mhp * regen);
-        }
-        bool touchingWall = updateBody();
+	bool update(bool emitting) {
+		if (hp < mhp) {
+			hp += (mhp * regen);
+		}
+		bool touchingWall = updateBody();
 		if (mode == MODE_BR && touchingWall && dyingStage == 0) {
 			dyingStage = 1;
 			if (brState == STATE_WAITING) {
@@ -760,16 +760,16 @@ public:
 				new Floater(material, position.x, position.y);
 			}
 		}
-        if (emitting && dyingStage == 1) {
-            dyingStage++;
-        } else if (dyingStage == 2) {
+		if (emitting && dyingStage == 1) {
+			dyingStage++;
+		} else if (dyingStage == 2) {
 			delete this;
 			return false;
-        }
+		}
 		return true;
-    }
+	}
 
-    void handleHealth(float damage, Player *player);
+	void handleHealth(float damage, Player *player);
 };
 
 int emitMetaSize = BYTE_SIZE + SHORT_SIZE + SHORT_SIZE + SHORT_SIZE + SHORT_SIZE; // code, number of units, number of floaters, number of bullets, number of players
@@ -780,201 +780,201 @@ int playerDataSize = SHORT_SIZE + INT_SIZE + BYTE_SIZE; // id, score, name lengt
 
 class Player {
 public:
-    unsigned short id;
-    uWS::WebSocket<uWS::SERVER> *io;
+	unsigned short id;
+	uWS::WebSocket<uWS::SERVER> *io;
 	// const char *address;
-    bool ready;
-    bool joined;
-    bool hasPlayed;
-    bool disconnected;
-    string name;
+	bool ready;
+	bool joined;
+	bool hasPlayed;
+	bool disconnected;
+	string name;
 	int socialTotal;
-    int score;
-    float x;
-    float y;
+	int score;
+	float x;
+	float y;
 	float ox;
 	float oy;
-    float tx;
-    float ty;
-    float accel;
-    // float maxSpeed;
-    float speedMult;
+	float tx;
+	float ty;
+	float accel;
+	// float maxSpeed;
+	float speedMult;
 	float weight;
-    int stashBonus;
-    materialCluster stash;
-    clientKeys keys;
-    bool mouse;
-    float scale;
-    bool usingJoystick;
-    float moveAngle;
-    float moveThrust;
-    Unit *core;
-    // recursive_mutex childrenUnitsMutex;
-    vector<Unit *> childrenUnits;
-    // recursive_mutex childrenBulletsMutex;
-    vector<Bullet *> childrenBullets;
-    unsigned long lastActivity;
+	int stashBonus;
+	materialCluster stash;
+	clientKeys keys;
+	bool mouse;
+	float scale;
+	bool usingJoystick;
+	float moveAngle;
+	float moveThrust;
+	Unit *core;
+	// recursive_mutex childrenUnitsMutex;
+	vector<Unit *> childrenUnits;
+	// recursive_mutex childrenBulletsMutex;
+	vector<Bullet *> childrenBullets;
+	unsigned long lastActivity;
 	unsigned long timeConnected;
 	unsigned long lastPing;
 	unsigned long timeJoined;
 	bool hasBuilt;
 
-    Player(uWS::WebSocket<uWS::SERVER> *connection/*, const char *addr*/) {
-        id = idc;
-        idc++;
-        io = connection;
-        io->setUserData(this);
+	Player(uWS::WebSocket<uWS::SERVER> *connection/*, const char *addr*/) {
+		id = idc;
+		idc++;
+		io = connection;
+		io->setUserData(this);
 		// address = addr;
-        ready = false;
-        joined = false;
-        hasPlayed = false;
-        disconnected = false;
-        name = "";
+		ready = false;
+		joined = false;
+		hasPlayed = false;
+		disconnected = false;
+		name = "";
 		socialTotal = 0;
-        score = 0;
-        x = width / 2;
-        y = height / 2;
-        tx = 0;
-        ty = 0;
-        accel = INITIAL_ACCEL;
-        // maxSpeed = INITIAL_MAX_SPEED;
-        speedMult = 0;
+		score = 0;
+		x = width / 2;
+		y = height / 2;
+		tx = 0;
+		ty = 0;
+		accel = INITIAL_ACCEL;
+		// maxSpeed = INITIAL_MAX_SPEED;
+		speedMult = 0;
 		weight = 0;
-        keys.w = false;
-        keys.a = false;
-        keys.s = false;
-        keys.d = false;
-        mouse = false;
-        scale = 1;
-        usingJoystick = false;
-        moveAngle = 0;
-        moveThrust = 0;
-        core = NULL;
+		keys.w = false;
+		keys.a = false;
+		keys.s = false;
+		keys.d = false;
+		mouse = false;
+		scale = 1;
+		usingJoystick = false;
+		moveAngle = 0;
+		moveThrust = 0;
+		core = NULL;
 		lastActivity = 0;
 		timeConnected = getTime();
 		lastPing = 0;
 		timeJoined = 0;
 		hasBuilt = false;
-        for (int i = 0; i < MATERIAL_NUM; i++) {
-            stash[i] = 0;
-        }
+		for (int i = 0; i < MATERIAL_NUM; i++) {
+			stash[i] = 0;
+		}
 
-        //playersMutex.lock();
-        players.push_back(this);
-        //playersMutex.unlock();
-    }
+		//playersMutex.lock();
+		players.push_back(this);
+		//playersMutex.unlock();
+	}
 
-    void deleteAllUnits() {
-        if (core != NULL) {
-            delete core; // ! deletes unit
-            core = NULL;
-        }
-        // children//unitsMutex.lock();
-        for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ) {
-            Unit *u = *it;
-            delete u; // ! deletes unit
-        }
-        // children//unitsMutex.unlock();
-    }
+	void deleteAllUnits() {
+		if (core != NULL) {
+			delete core; // ! deletes unit
+			core = NULL;
+		}
+		// children//unitsMutex.lock();
+		for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ) {
+			Unit *u = *it;
+			delete u; // ! deletes unit
+		}
+		// children//unitsMutex.unlock();
+	}
 
-    ~Player() {
-        checkDrain();
-        deleteAllUnits();
+	~Player() {
+		checkDrain();
+		deleteAllUnits();
 
-        //playersMutex.lock();
-        players.erase(remove(players.begin(), players.end(), this), players.end());
-        //playersMutex.unlock();
+		//playersMutex.lock();
+		players.erase(remove(players.begin(), players.end(), this), players.end());
+		//playersMutex.unlock();
 
-        // children//bulletsMutex.lock();
-        for (vector<Bullet *>::iterator it = childrenBullets.begin(); it != childrenBullets.end(); ++it) {
-            Bullet *b = *it;
-            b->owner = NULL;
-            delete b;
-        }
-        // children//bulletsMutex.unlock();
+		// children//bulletsMutex.lock();
+		for (vector<Bullet *>::iterator it = childrenBullets.begin(); it != childrenBullets.end(); ++it) {
+			Bullet *b = *it;
+			b->owner = NULL;
+			delete b;
+		}
+		// children//bulletsMutex.unlock();
 
-        //floatersMutex.lock();
-        for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
-            Floater *f = *it;
+		//floatersMutex.lock();
+		for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
+			Floater *f = *it;
 
-            f->viewedBy.erase(this);
-            // f->viewedBy.erase(remove(f->viewedBy.begin(), f->viewedBy.end(), this), f->viewedBy.end());
-        }
-        //floatersMutex.unlock();
-    }
+			f->viewedBy.erase(this);
+			// f->viewedBy.erase(remove(f->viewedBy.begin(), f->viewedBy.end(), this), f->viewedBy.end());
+		}
+		//floatersMutex.unlock();
+	}
 
-    void update(float timeMult) {
+	void update(float timeMult) {
 		if (joined) {
-	        if (core != NULL && core->body != NULL) {
+			if (core != NULL && core->body != NULL) {
 				ox = x;
 				oy = y;
-	            x = core->x;
-	            y = core->y;
+				x = core->x;
+				y = core->y;
 
-	            float nvx = 0;
-	            float nvy = 0;
+				float nvx = 0;
+				float nvy = 0;
 				float total = (accel / (1 + weight)) * speedMult * timeMult;
 
-	            if (!usingJoystick) {
-	                if (keys.w) {
-	                    nvy -= total;
-	                }
-	                if (keys.a) {
-	                    nvx -= total;
-	                }
-	                if (keys.s) {
-	                    nvy += total;
-	                }
-	                if (keys.d) {
-	                    nvx += total;
-	                }
+				if (!usingJoystick) {
+					if (keys.w) {
+						nvy -= total;
+					}
+					if (keys.a) {
+						nvx -= total;
+					}
+					if (keys.s) {
+						nvy += total;
+					}
+					if (keys.d) {
+						nvx += total;
+					}
 
-	                if ((nvx > 0 || nvx < 0) && (nvy > 0 || nvy < 0)) {
-	                    nvx *= sqrtv;
-	                    nvy *= sqrtv;
-	                }
-	            } else {
-	                pos position = pfa(0, 0, moveAngle, moveThrust * total);
-	                nvx = position.x;
-	                nvy = position.y;
-	            }
+					if ((nvx > 0 || nvx < 0) && (nvy > 0 || nvy < 0)) {
+						nvx *= sqrtv;
+						nvy *= sqrtv;
+					}
+				} else {
+					pos position = pfa(0, 0, moveAngle, moveThrust * total);
+					nvx = position.x;
+					nvy = position.y;
+				}
 
-	            b2Vec2 v = core->body->GetLinearVelocity();
+				b2Vec2 v = core->body->GetLinearVelocity();
 
 				// float limit = (maxSpeed - weight) * speedMult;
-	            // if (v.x > limit) {
-	            //     nvx = 0;
-	            // }
-	            // if (v.y > limit) {
-	            //     nvy = 0;
-	            // }
+				// if (v.x > limit) {
+				//	 nvx = 0;
+				// }
+				// if (v.y > limit) {
+				//	 nvy = 0;
+				// }
 
-	            core->body->ApplyForce(b2Vec2(nvx, nvy), core->body->GetWorldCenter());
+				core->body->ApplyForce(b2Vec2(nvx, nvy), core->body->GetWorldCenter());
 
-	            if (mouse) {
-	                core->activate();
-	            }
+				if (mouse) {
+					core->activate();
+				}
 
-	            // children//unitsMutex.lock();
-	            for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
-	                Unit *u = *it;
-	                if (u->body != NULL) {
-	                    u->body->ApplyForce(b2Vec2(nvx, nvy), u->body->GetWorldCenter());
+				// children//unitsMutex.lock();
+				for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
+					Unit *u = *it;
+					if (u->body != NULL) {
+						u->body->ApplyForce(b2Vec2(nvx, nvy), u->body->GetWorldCenter());
 						if (mouse && u->manualActivate || u->autoActivate) {
-		                    u->activate();
-		                }
-	                }
-	            }
-	            // children//unitsMutex.unlock();
-	        }
+							u->activate();
+						}
+					}
+				}
+				// children//unitsMutex.unlock();
+			}
 		}
-        if (mode == MODE_FFA && lastActivity != 0 && getTime() - lastActivity > INACTIVITY_KICK_TIME) {
-            kick();
-        }
+		if (mode == MODE_FFA && lastActivity != 0 && getTime() - lastActivity > INACTIVITY_KICK_TIME) {
+			kick();
+		}
 		if ((lastPing == 0 && getTime() - timeConnected > 10000) || (lastPing != 0 && getTime() - lastPing > 10000)) {
 			kick();
 		}
-    }
+	}
 
 	void send(byte *data, int size) {
 		if (!disconnected) {
@@ -982,35 +982,35 @@ public:
 		}
 	}
 
-    void giveInfo() {
-        int totalSize = BYTE_SIZE + FLOAT_SIZE + FLOAT_SIZE + FLOAT_SIZE + INT_SIZE + FLOAT_SIZE + INT_SIZE + FLOAT_SIZE + BYTE_SIZE +(INT_SIZE * UNIT_TYPE_NUM); // code, width, height, pixel to meter ratio, self id, frame send delta, unit limit, floater regen, frames per send, unit costs
-        byte *data = static_cast<byte *>(malloc(totalSize));
+	void giveInfo() {
+		int totalSize = BYTE_SIZE + FLOAT_SIZE + FLOAT_SIZE + FLOAT_SIZE + INT_SIZE + FLOAT_SIZE + INT_SIZE + FLOAT_SIZE + BYTE_SIZE +(INT_SIZE * UNIT_TYPE_NUM); // code, width, height, pixel to meter ratio, self id, frame send delta, unit limit, floater regen, frames per send, unit costs
+		byte *data = static_cast<byte *>(malloc(totalSize));
 
-        byte code = SERVER_CODE_INFO;
-        float ptmr = PIXEL_TO_METER_RATIO;
-        float delta = (1000 / FPS) * FRAMES_PER_SEND;
-        unsigned int unitLimit = UNIT_LIMIT;
-        float floaterRegen = FLOATER_REGEN;
-        byte framesPerSend = FRAMES_PER_SEND;
+		byte code = SERVER_CODE_INFO;
+		float ptmr = PIXEL_TO_METER_RATIO;
+		float delta = (1000 / FPS) * FRAMES_PER_SEND;
+		unsigned int unitLimit = UNIT_LIMIT;
+		float floaterRegen = FLOATER_REGEN;
+		byte framesPerSend = FRAMES_PER_SEND;
 
-        byte *offset = data;
-        memcpy(offset, &code, BYTE_SIZE);
+		byte *offset = data;
+		memcpy(offset, &code, BYTE_SIZE);
 		offset += BYTE_SIZE;
-        memcpy(offset, &width, FLOAT_SIZE);
+		memcpy(offset, &width, FLOAT_SIZE);
 		offset += FLOAT_SIZE;
-        memcpy(offset, &height, FLOAT_SIZE);
+		memcpy(offset, &height, FLOAT_SIZE);
 		offset += FLOAT_SIZE;
-        memcpy(offset, &ptmr, FLOAT_SIZE);
+		memcpy(offset, &ptmr, FLOAT_SIZE);
 		offset += FLOAT_SIZE;
-        memcpy(offset, &id, SHORT_SIZE);
+		memcpy(offset, &id, SHORT_SIZE);
 		offset += SHORT_SIZE;
-        memcpy(offset, &delta, FLOAT_SIZE);
+		memcpy(offset, &delta, FLOAT_SIZE);
 		offset += FLOAT_SIZE;
-        memcpy(offset, &unitLimit, INT_SIZE);
+		memcpy(offset, &unitLimit, INT_SIZE);
 		offset += INT_SIZE;
-        memcpy(offset, &floaterRegen, FLOAT_SIZE);
+		memcpy(offset, &floaterRegen, FLOAT_SIZE);
 		offset += FLOAT_SIZE;
-        memcpy(offset, &framesPerSend, BYTE_SIZE);
+		memcpy(offset, &framesPerSend, BYTE_SIZE);
 		offset += BYTE_SIZE;
 
 		for (int i = 0; i < UNIT_TYPE_NUM; i++) {
@@ -1018,122 +1018,122 @@ public:
 			offset += INT_SIZE;
 		}
 
-        send(data, totalSize); // Send data
+		send(data, totalSize); // Send data
 
-        free(data);
-    }
+		free(data);
+	}
 
-    void play(string n, byte s) {
-        try {
-            if (!joined) {
-                joined = true;
+	void play(string n, byte s) {
+		try {
+			if (!joined) {
+				joined = true;
 				totalJoined++;
 				timeJoined = getTime();
 				hasBuilt = false;
-                name = n;
+				name = n;
 				if (s <= SOCIAL_NUM && s >= 0) {
 					socialTotal = s * socialBonus;
 				}
 				halveStash(stash, socialTotal, name);
 
-                pos position = randomSpawnPosition();
-                x = position.x;
-                y = position.y;
-                core = new Unit(this, NULL, x, y, 0, 0, UNIT_CORE, MATERIAL_WOOD);
+				pos position = randomSpawnPosition();
+				x = position.x;
+				y = position.y;
+				core = new Unit(this, NULL, x, y, 0, 0, UNIT_CORE, MATERIAL_WOOD);
 
-                byte data = SERVER_CODE_JOINED;
-                send(&data, BYTE_SIZE); // Send data
+				byte data = SERVER_CODE_JOINED;
+				send(&data, BYTE_SIZE); // Send data
 				emitStash(0);
 				calculateWeight();
 
-                hasPlayed = true;
+				hasPlayed = true;
 
 				if (mode == MODE_BR) {
 					if (brState == STATE_WAITING) resize(totalJoined, 1);
 					updateBr();
 				}
-            }
-        } catch(...) {}
-    }
+			}
+		} catch(...) {}
+	}
 
-    void keyEvent(byte code, byte byteState) {
-        bool state = false;
-        if (byteState == 1) {
-            state = true;
-        }
-        if (code == 87 || code == 38) {
-            keys.w = state;
-        } else if (code == 65 || code == 37) {
-            keys.a = state;
-        } else if (code == 83 || code == 40) {
-            keys.s = state;
-        } else if (code == 68 || code == 39) {
-            keys.d = state;
-        } else if (code == 1) {
-            mouse = state;
-        }
-    }
+	void keyEvent(byte code, byte byteState) {
+		bool state = false;
+		if (byteState == 1) {
+			state = true;
+		}
+		if (code == 87 || code == 38) {
+			keys.w = state;
+		} else if (code == 65 || code == 37) {
+			keys.a = state;
+		} else if (code == 83 || code == 40) {
+			keys.s = state;
+		} else if (code == 68 || code == 39) {
+			keys.d = state;
+		} else if (code == 1) {
+			mouse = state;
+		}
+	}
 
-    void mouseEvent(int mx, int my) {
-        if (core != NULL) {
-            tx = core->x +((float)(mx) /(float)(PIXEL_TO_METER_RATIO));
-            ty = core->y +((float)(my) /(float)(PIXEL_TO_METER_RATIO));
+	void mouseEvent(int mx, int my) {
+		if (core != NULL) {
+			tx = core->x +((float)(mx) /(float)(PIXEL_TO_METER_RATIO));
+			ty = core->y +((float)(my) /(float)(PIXEL_TO_METER_RATIO));
 
-            core->angle = norm(afp(core->x, core->y, tx, ty) + M_PI / 2);
-            // children//unitsMutex.lock();
-            for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
-                Unit *u = *it;
-                if (u->spinAnimation == 0) {
-                    u->angle = norm(afp(u->x, u->y, tx, ty) + M_PI / 2);
-                }
-            }
-            // children//unitsMutex.unlock();
-        }
-    }
+			core->angle = norm(afp(core->x, core->y, tx, ty) + M_PI / 2);
+			// children//unitsMutex.lock();
+			for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
+				Unit *u = *it;
+				if (u->spinAnimation == 0) {
+					u->angle = norm(afp(u->x, u->y, tx, ty) + M_PI / 2);
+				}
+			}
+			// children//unitsMutex.unlock();
+		}
+	}
 
-    void moveEvent(float angle, float thrust) {
-        usingJoystick = true;
-        moveAngle = angle;
-        if (thrust > 1) {
-            thrust = 1;
-        } else if (thrust < 0) {
-            thrust = 0;
-        }
-        moveThrust = thrust;
-    }
+	void moveEvent(float angle, float thrust) {
+		usingJoystick = true;
+		moveAngle = angle;
+		if (thrust > 1) {
+			thrust = 1;
+		} else if (thrust < 0) {
+			thrust = 0;
+		}
+		moveThrust = thrust;
+	}
 
-    void calculateScale() {
-        if (childrenUnits.size() > 0) {
-            float largestDistance = 0;
-            // children//unitsMutex.lock();
-            for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
-                Unit *u = *it;
-                float distance = dfp(x, y, u->x, u->y);
-                if (distance > largestDistance) {
-                    largestDistance = distance;
-                }
-            }
-            // children//unitsMutex.unlock();
-            if (largestDistance > SCALE_THRESHOLD) {
-                scale = 1 /((largestDistance - SCALE_THRESHOLD) * SCALE_MULT + 1);
-            } else {
-                scale = 1;
-            }
+	void calculateScale() {
+		if (childrenUnits.size() > 0) {
+			float largestDistance = 0;
+			// children//unitsMutex.lock();
+			for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
+				Unit *u = *it;
+				float distance = dfp(x, y, u->x, u->y);
+				if (distance > largestDistance) {
+					largestDistance = distance;
+				}
+			}
+			// children//unitsMutex.unlock();
+			if (largestDistance > SCALE_THRESHOLD) {
+				scale = 1 /((largestDistance - SCALE_THRESHOLD) * SCALE_MULT + 1);
+			} else {
+				scale = 1;
+			}
 
-            int totalSize = BYTE_SIZE + FLOAT_SIZE;
-            byte *data = static_cast<byte *>(malloc(totalSize));
+			int totalSize = BYTE_SIZE + FLOAT_SIZE;
+			byte *data = static_cast<byte *>(malloc(totalSize));
 
-            byte code = SERVER_CODE_SCALE;
+			byte code = SERVER_CODE_SCALE;
 
-            byte *offset = data;
-            memcpy(offset, &code, BYTE_SIZE);
-            memcpy(offset + BYTE_SIZE, &scale, FLOAT_SIZE);
+			byte *offset = data;
+			memcpy(offset, &code, BYTE_SIZE);
+			memcpy(offset + BYTE_SIZE, &scale, FLOAT_SIZE);
 
-            send(data, totalSize); // Send data
+			send(data, totalSize); // Send data
 
-            free(data);
-        }
-    }
+			free(data);
+		}
+	}
 
 	void calculateWeight() {
 		weight = 0;
@@ -1150,96 +1150,96 @@ public:
 		// cout << weight << endl;
 	}
 
-    void build(unsigned short id, byte type, byte material, float angle) {
-        if ((mode == MODE_FFA || brState == STATE_PLAYING) && childrenUnits.size() < UNIT_LIMIT && type != UNIT_CORE && type > 0 && type < UNIT_TYPE_NUM && material >= 0 && material < MATERIAL_NUM) {
-            int actualCost = (int) costScale((float) unitDefs[type].cost, material);
-            if (actualCost <= stash[material]) {
-                Unit *unit = findUnitById(id);
-                if (unit != NULL && unit->buildable) {
-                    pos position = pfa(unit->x, unit->y, angle, unit->size + unitDefs[type].size);
-                    bool withinOther = false;
-                    if (unit != core && core != NULL) {
-                        if (dfp(position.x, position.y, core->x, core->y) <(unitDefs[type].size + core->size)) {
-                            withinOther = true;
-                        }
-                    } else if (!withinOther) {
-                        // children//unitsMutex.lock();
-                        for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
-                            Unit *u = *it;
-                            if (u != unit && dfp(position.x, position.y, u->x, u->y) <(unitDefs[type].size + u->size)) {
-                                withinOther = true;
-                                break;
-                            }
-                        }
-                        // children//unitsMutex.unlock();
-                    }
-                    if (!withinOther) {
-                        Unit *newUnit = new Unit(this, unit, position.x, position.y, angle - M_PI / 2, angle, type, material);
-                        // children//unitsMutex.lock();
-                        childrenUnits.push_back(newUnit);
-                        // children//unitsMutex.unlock();
-                        // unit->children//unitsMutex.lock();
-                        unit->childrenUnits.push_back(newUnit);
-                        // unit->children//unitsMutex.unlock();
-                        stash[material] -= actualCost;
-                        emitStash(1);
-                        calculateScale();
+	void build(unsigned short id, byte type, byte material, float angle) {
+		if ((mode == MODE_FFA || brState == STATE_PLAYING) && childrenUnits.size() < UNIT_LIMIT && type != UNIT_CORE && type > 0 && type < UNIT_TYPE_NUM && material >= 0 && material < MATERIAL_NUM) {
+			int actualCost = (int) costScale((float) unitDefs[type].cost, material);
+			if (actualCost <= stash[material]) {
+				Unit *unit = findUnitById(id);
+				if (unit != NULL && unit->buildable) {
+					pos position = pfa(unit->x, unit->y, angle, unit->size + unitDefs[type].size);
+					bool withinOther = false;
+					if (unit != core && core != NULL) {
+						if (dfp(position.x, position.y, core->x, core->y) <(unitDefs[type].size + core->size)) {
+							withinOther = true;
+						}
+					} else if (!withinOther) {
+						// children//unitsMutex.lock();
+						for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
+							Unit *u = *it;
+							if (u != unit && dfp(position.x, position.y, u->x, u->y) <(unitDefs[type].size + u->size)) {
+								withinOther = true;
+								break;
+							}
+						}
+						// children//unitsMutex.unlock();
+					}
+					if (!withinOther) {
+						Unit *newUnit = new Unit(this, unit, position.x, position.y, angle - M_PI / 2, angle, type, material);
+						// children//unitsMutex.lock();
+						childrenUnits.push_back(newUnit);
+						// children//unitsMutex.unlock();
+						// unit->children//unitsMutex.lock();
+						unit->childrenUnits.push_back(newUnit);
+						// unit->children//unitsMutex.unlock();
+						stash[material] -= actualCost;
+						emitStash(1);
+						calculateScale();
 						calculateWeight();
 						hasBuilt = true;
-                    }
-                }
-            }
-        }
-    }
-
-    void upgrade(unsigned short id) {
-		if (mode == MODE_FFA || brState == STATE_PLAYING) {
-	        Unit *u = findUnitById(id);
-	        if (u != NULL) {
-	            int actualCost = (int)(costScale(unitDefs[u->unitType].cost, u->material + 1) - costScale(unitDefs[u->unitType].cost, u->material) / 4);
-	            if (actualCost <= u->owner->stash[u->material + 1] && !(u->unitType == UNIT_ALCHEMY_LAB && u->material == MATERIAL_NUM - 2)) {
-	                u->material++;
-	                u->updateStats();
-	                u->owner->stash[u->material] -= actualCost;
-	                emitStash(1);
-					calculateWeight();
-	            }
-	        }
+					}
+				}
+			}
 		}
-    }
+	}
 
-    void deleteUnit(unsigned short id) {
-        Unit *u = findUnitById(id);
-        if (u != NULL && u->unitType != UNIT_CORE) {
-            stash[u->material] += costScale(unitDefs[u->unitType].cost, u->material) / 2;
-            emitStash(1);
-            delete u;
-            calculateScale();
+	void upgrade(unsigned short id) {
+		if (mode == MODE_FFA || brState == STATE_PLAYING) {
+			Unit *u = findUnitById(id);
+			if (u != NULL) {
+				int actualCost = (int)(costScale(unitDefs[u->unitType].cost, u->material + 1) - costScale(unitDefs[u->unitType].cost, u->material) / 4);
+				if (actualCost <= u->owner->stash[u->material + 1] && !(u->unitType == UNIT_ALCHEMY_LAB && u->material == MATERIAL_NUM - 2)) {
+					u->material++;
+					u->updateStats();
+					u->owner->stash[u->material] -= actualCost;
+					emitStash(1);
+					calculateWeight();
+				}
+			}
+		}
+	}
+
+	void deleteUnit(unsigned short id) {
+		Unit *u = findUnitById(id);
+		if (u != NULL && u->unitType != UNIT_CORE) {
+			stash[u->material] += costScale(unitDefs[u->unitType].cost, u->material) / 2;
+			emitStash(1);
+			delete u;
+			calculateScale();
 			calculateWeight();
-        }
-    }
+		}
+	}
 
-    bool isInView(Object *o) {
-        float viewWidth = (SCREEN_WIDTH / PIXEL_TO_METER_RATIO) / scale;
-        float viewHeight = (SCREEN_HEIGHT / PIXEL_TO_METER_RATIO) / scale;
+	bool isInView(Object *o) {
+		float viewWidth = (SCREEN_WIDTH / PIXEL_TO_METER_RATIO) / scale;
+		float viewHeight = (SCREEN_HEIGHT / PIXEL_TO_METER_RATIO) / scale;
 		float sx = (x - ox) * CAMERA_LAG;
 		float sy = (y - oy) * CAMERA_LAG;
-        // return(x > o->x - viewWidth / 2 - o->size - VIEW_PADDING - padding && x < o->x + viewWidth / 2 + o->size + VIEW_PADDING + padding && y > o->y - viewHeight / 2 - o->size - VIEW_PADDING - padding && y < o->y + viewHeight / 2 + o->size + VIEW_PADDING + padding);
+		// return(x > o->x - viewWidth / 2 - o->size - VIEW_PADDING - padding && x < o->x + viewWidth / 2 + o->size + VIEW_PADDING + padding && y > o->y - viewHeight / 2 - o->size - VIEW_PADDING - padding && y < o->y + viewHeight / 2 + o->size + VIEW_PADDING + padding);
 		return(x > o->x + sx - viewWidth / 2 - o->size - VIEW_PADDING && x < o->x + sx + viewWidth / 2 + o->size + VIEW_PADDING && y > o->y + sy - viewHeight / 2 - o->size - VIEW_PADDING && y < o->y + sy + viewHeight / 2 + o->size + VIEW_PADDING);
-    }
+	}
 
-    void die(Player *player) {
+	void die(Player *player) {
 		bool isPlayer = false;
 
-        if (player != NULL) {
-            for (int i = 0; i < MATERIAL_NUM; i++) {
-                player->stash[i] += stash[i] / 2;
-            }
-            player->score += score / 2;
-            sendKill(player, this);
+		if (player != NULL) {
+			for (int i = 0; i < MATERIAL_NUM; i++) {
+				player->stash[i] += stash[i] / 2;
+			}
+			player->score += score / 2;
+			sendKill(player, this);
 
 			isPlayer = true;
-        }
+		}
 
 		if (isPlayer) {
 			byte nameLength = player->name.length();
@@ -1265,36 +1265,36 @@ public:
 			free(data);
 		}
 
-        deleteAllUnits();
-        wipeInputs(&keys, &mouse);
-        score = 0;
-        // halveStash(stash, socialTotal);
-        // emitStash(0);
+		deleteAllUnits();
+		wipeInputs(&keys, &mouse);
+		score = 0;
+		// halveStash(stash, socialTotal);
+		// emitStash(0);
 
 		bool wasJoined = joined;
 		joined = false;
 
 		if (draining || mode == MODE_BR) {
 			if (mode == MODE_BR) emitBrRank();
-            kick();
-        }
+			kick();
+		}
 
 		if (wasJoined) totalJoined--;
 
-        // data = SERVER_CODE_SHAKE;
-        // send(&data, BYTE_SIZE);
-        // //playersMutex.lock();
-        // for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
-        //     Player *p = *it;
-        //     if (p->core != NULL && isInView(p->core)) {
-        //         p->send(&data, BYTE_SIZE);
-        //     }
-        // }
-        // //playersMutex.unlock();
+		// data = SERVER_CODE_SHAKE;
+		// send(&data, BYTE_SIZE);
+		// //playersMutex.lock();
+		// for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
+		//	 Player *p = *it;
+		//	 if (p->core != NULL && isInView(p->core)) {
+		//		 p->send(&data, BYTE_SIZE);
+		//	 }
+		// }
+		// //playersMutex.unlock();
 
 
 		if (mode == MODE_BR) updateBr();
-    }
+	}
 
 	void emitBrRank() {
 		int totalSize = BYTE_SIZE + INT_SIZE; // code, rank
@@ -1306,236 +1306,236 @@ public:
 		free(data);
 	}
 
-    void kick() {
-        byte data = SERVER_CODE_KICK;
+	void kick() {
+		byte data = SERVER_CODE_KICK;
 		if (!disconnected) {
 			if (joined) totalJoined--;
 			joined = false;
 			disconnected = true;
-        	io->close(1000, &data, sizeof(data));
+			io->close(1000, &data, sizeof(data));
 			// eraseAddress(address);
 		}
-    }
+	}
 
-    void emit() {
-        unsigned short numUnits = static_cast<int>(units.size());
-        unsigned short numFloaters = static_cast<int>(floaters.size());
-        unsigned short numBullets = static_cast<int>(bullets.size());
-        unsigned short numPlayers = static_cast<int>(players.size());
+	void emit() {
+		unsigned short numUnits = static_cast<int>(units.size());
+		unsigned short numFloaters = static_cast<int>(floaters.size());
+		unsigned short numBullets = static_cast<int>(bullets.size());
+		unsigned short numPlayers = static_cast<int>(players.size());
 
-        int dataSize = (unitDataSize * numUnits) + (floaterDataSize * numFloaters) + (bulletDataSize * numBullets) + (playerDataSize * numPlayers) + (MAX_NAME_LENGTH * numPlayers); // units, floaters, bullets, players, worst case for name lengths
+		int dataSize = (unitDataSize * numUnits) + (floaterDataSize * numFloaters) + (bulletDataSize * numBullets) + (playerDataSize * numPlayers) + (MAX_NAME_LENGTH * numPlayers); // units, floaters, bullets, players, worst case for name lengths
 		if (mode == MODE_BR) {
 			dataSize += FLOAT_SIZE + FLOAT_SIZE; // width, height
 		}
-        int totalSize = emitMetaSize + dataSize;
-        int actualSize = emitMetaSize;
-        int unitsInView = 0;
-        int floatersInView = 0;
-        int bulletsInView = 0;
-        int numPlayersInView = 0;
-        Player *playersInView[maxPlayers];
-        byte *data = static_cast<byte *>(malloc(totalSize));
+		int totalSize = emitMetaSize + dataSize;
+		int actualSize = emitMetaSize;
+		int unitsInView = 0;
+		int floatersInView = 0;
+		int bulletsInView = 0;
+		int numPlayersInView = 0;
+		Player *playersInView[maxPlayers];
+		byte *data = static_cast<byte *>(malloc(totalSize));
 
-        byte code = SERVER_CODE_UPDATE;
+		byte code = SERVER_CODE_UPDATE;
 
-        byte *offset = data;
-        offset += emitMetaSize;
+		byte *offset = data;
+		offset += emitMetaSize;
 
-        int i = 0;
-        //unitsMutex.lock();
-        for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ++it) {
-            Unit *u = *it;
-            if (isInView((Object *) u)) {
-                memcpy(offset, &u->id, SHORT_SIZE);
-                offset += SHORT_SIZE;
-                memcpy(offset, &u->x, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &u->y, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &u->size, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &u->angle, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &u->unitType, BYTE_SIZE);
-                offset += BYTE_SIZE;
-                memcpy(offset, &u->material, BYTE_SIZE);
-                offset += BYTE_SIZE;
-                memcpy(offset, &u->owner->id, SHORT_SIZE);
-                offset += SHORT_SIZE;
-                float hpp = u->hp / u->mhp;
-                memcpy(offset, &hpp, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &u->rotation, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                i++;
-                unitsInView++;
-                bool found = false;
-                if (numPlayersInView > 0) {
-                    for (int i = 0; i < numPlayersInView; i++) {
-                        if (playersInView[i] == u->owner) { // TODO: seg fault
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                if (!found && u->owner != this) {
-                    playersInView[numPlayersInView] = u->owner;
-                    numPlayersInView++;
-                }
-            }
-        }
-        //unitsMutex.unlock();
+		int i = 0;
+		//unitsMutex.lock();
+		for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ++it) {
+			Unit *u = *it;
+			if (isInView((Object *) u)) {
+				memcpy(offset, &u->id, SHORT_SIZE);
+				offset += SHORT_SIZE;
+				memcpy(offset, &u->x, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &u->y, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &u->size, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &u->angle, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &u->unitType, BYTE_SIZE);
+				offset += BYTE_SIZE;
+				memcpy(offset, &u->material, BYTE_SIZE);
+				offset += BYTE_SIZE;
+				memcpy(offset, &u->owner->id, SHORT_SIZE);
+				offset += SHORT_SIZE;
+				float hpp = u->hp / u->mhp;
+				memcpy(offset, &hpp, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &u->rotation, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				i++;
+				unitsInView++;
+				bool found = false;
+				if (numPlayersInView > 0) {
+					for (int i = 0; i < numPlayersInView; i++) {
+						if (playersInView[i] == u->owner) { // TODO: seg fault
+							found = true;
+							break;
+						}
+					}
+				}
+				if (!found && u->owner != this) {
+					playersInView[numPlayersInView] = u->owner;
+					numPlayersInView++;
+				}
+			}
+		}
+		//unitsMutex.unlock();
 
-        // cout << "NFS " << nearFloaters.size() << endl;
-        // cout << "VFS " << visibleFloaters.size() << endl;
-        // unsigned long temp = getTime();
-        i = 0;
-        // for (vector<FloaterPointer *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
-        //floatersMutex.lock();
-        for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
-            // FloaterPointer *fp = *it;
-            // Floater *f = fp->floater;
-            Floater *f = *it;
+		// cout << "NFS " << nearFloaters.size() << endl;
+		// cout << "VFS " << visibleFloaters.size() << endl;
+		// unsigned long temp = getTime();
+		i = 0;
+		// for (vector<FloaterPointer *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
+		//floatersMutex.lock();
+		for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ++it) {
+			// FloaterPointer *fp = *it;
+			// Floater *f = fp->floater;
+			Floater *f = *it;
 
-            // if (f != NULL) {
-                // // // // // bool inVisible = visibleFloaters.find(f) != visibleFloaters.end();
-                bool inViewed = f->viewedBy.find(this) != f->viewedBy.end();
-                // bool inViewed = find(f->viewedBy.begin(), f->viewedBy.end(), this) != f->viewedBy.end();
-                if (isInView((Object *) f)) {
-                    if (f->dyingStage > 0) {
-                        memcpy(offset, &f->id, SHORT_SIZE);
-                        offset += SHORT_SIZE;
-                        float negativeOne = -1;
-                        memcpy(offset, &negativeOne, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        floatersInView++;
-                    } else if (f->active || !inViewed) {
-                        memcpy(offset, &f->id, SHORT_SIZE);
-                        offset += SHORT_SIZE;
-                        memcpy(offset, &f->x, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        memcpy(offset, &f->y, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        memcpy(offset, &f->size, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        memcpy(offset, &f->rotation, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        memcpy(offset, &f->material, BYTE_SIZE);
-                        offset += BYTE_SIZE;
-                        float hpp = f->hp / f->mhp;
-                        memcpy(offset, &hpp, FLOAT_SIZE);
-                        offset += FLOAT_SIZE;
-                        floatersInView++;
-                        if (!inViewed) {
-                            f->viewedBy.insert(this);
-                            // f->viewedBy.push_back(this);
-                        }
-                    }
-                } else if (inViewed) {
-                    memcpy(offset, &f->id, SHORT_SIZE);
-                    offset += SHORT_SIZE;
-                    float negativeOne = -1;
-                    memcpy(offset, &negativeOne, FLOAT_SIZE);
-                    offset += FLOAT_SIZE;
-                    floatersInView++;
+			// if (f != NULL) {
+				// // // // // bool inVisible = visibleFloaters.find(f) != visibleFloaters.end();
+				bool inViewed = f->viewedBy.find(this) != f->viewedBy.end();
+				// bool inViewed = find(f->viewedBy.begin(), f->viewedBy.end(), this) != f->viewedBy.end();
+				if (isInView((Object *) f)) {
+					if (f->dyingStage > 0) {
+						memcpy(offset, &f->id, SHORT_SIZE);
+						offset += SHORT_SIZE;
+						float negativeOne = -1;
+						memcpy(offset, &negativeOne, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						floatersInView++;
+					} else if (f->active || !inViewed) {
+						memcpy(offset, &f->id, SHORT_SIZE);
+						offset += SHORT_SIZE;
+						memcpy(offset, &f->x, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						memcpy(offset, &f->y, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						memcpy(offset, &f->size, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						memcpy(offset, &f->rotation, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						memcpy(offset, &f->material, BYTE_SIZE);
+						offset += BYTE_SIZE;
+						float hpp = f->hp / f->mhp;
+						memcpy(offset, &hpp, FLOAT_SIZE);
+						offset += FLOAT_SIZE;
+						floatersInView++;
+						if (!inViewed) {
+							f->viewedBy.insert(this);
+							// f->viewedBy.push_back(this);
+						}
+					}
+				} else if (inViewed) {
+					memcpy(offset, &f->id, SHORT_SIZE);
+					offset += SHORT_SIZE;
+					float negativeOne = -1;
+					memcpy(offset, &negativeOne, FLOAT_SIZE);
+					offset += FLOAT_SIZE;
+					floatersInView++;
 
-                    f->viewedBy.erase(this);
-                    // f->viewedBy.erase(remove(f->viewedBy.begin(), f->viewedBy.end(), this), f->viewedBy.end());
-                }
-            }
-            //floatersMutex.unlock();
-        // }
-        // cout << "E7 " << getTime() - temp << endl;
+					f->viewedBy.erase(this);
+					// f->viewedBy.erase(remove(f->viewedBy.begin(), f->viewedBy.end(), this), f->viewedBy.end());
+				}
+			}
+			//floatersMutex.unlock();
+		// }
+		// cout << "E7 " << getTime() - temp << endl;
 
-        i = 0;
-        for (vector<Bullet *>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-            Bullet *b = *it;
-            if (b->body != NULL && isInView((Object *) b)) {
-                memcpy(offset, &b->id, SHORT_SIZE);
-                offset += SHORT_SIZE;
-                memcpy(offset, &b->x, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &b->y, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &b->size, FLOAT_SIZE);
-                offset += FLOAT_SIZE;
-                memcpy(offset, &b->material, BYTE_SIZE);
-                offset += BYTE_SIZE;
-                bulletsInView++;
-                i++;
-            }
-        }
-
-        for (i = 0; i < numPlayersInView; i++) {
-            byte nameLength = playersInView[i]->name.length(); // TODO: ! seg fault
-            memcpy(offset, &playersInView[i]->id, SHORT_SIZE);
-            offset += SHORT_SIZE;
-            memcpy(offset, &playersInView[i]->score, INT_SIZE);
-            offset += INT_SIZE;
-            memcpy(offset, &nameLength, BYTE_SIZE);
-            offset += BYTE_SIZE;
-            const char *cstr = playersInView[i]->name.c_str();
-            memcpy(offset, cstr, nameLength);
-            offset += nameLength;
-            actualSize += nameLength;
-        }
-
-        actualSize = (int)(offset - data);//+= (unitDataSize * unitsInView) +(floaterDataSize * floatersInView) +(bulletDataSize * bulletsInView) +(playerDataSize * numPlayersInView);
-
-        offset = data;
-        memcpy(offset, &code, BYTE_SIZE);
-        offset += BYTE_SIZE;
-        memcpy(offset, &unitsInView, SHORT_SIZE);
-        offset += SHORT_SIZE;
-        memcpy(offset, &floatersInView, SHORT_SIZE);
-        offset += SHORT_SIZE;
-        memcpy(offset, &bulletsInView, SHORT_SIZE);
-        offset += SHORT_SIZE;
-        memcpy(offset, &numPlayersInView, SHORT_SIZE);
-        offset += SHORT_SIZE;
-		if (mode == MODE_BR) {
-			memcpy(offset, &width, FLOAT_SIZE);
-	        offset += FLOAT_SIZE;
-			memcpy(offset, &height, FLOAT_SIZE);
-	        offset += FLOAT_SIZE;
+		i = 0;
+		for (vector<Bullet *>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+			Bullet *b = *it;
+			if (b->body != NULL && isInView((Object *) b)) {
+				memcpy(offset, &b->id, SHORT_SIZE);
+				offset += SHORT_SIZE;
+				memcpy(offset, &b->x, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &b->y, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &b->size, FLOAT_SIZE);
+				offset += FLOAT_SIZE;
+				memcpy(offset, &b->material, BYTE_SIZE);
+				offset += BYTE_SIZE;
+				bulletsInView++;
+				i++;
+			}
 		}
 
-        // Thing was here(actualSize = offset;//+= ...)
+		for (i = 0; i < numPlayersInView; i++) {
+			byte nameLength = playersInView[i]->name.length(); // TODO: ! seg fault
+			memcpy(offset, &playersInView[i]->id, SHORT_SIZE);
+			offset += SHORT_SIZE;
+			memcpy(offset, &playersInView[i]->score, INT_SIZE);
+			offset += INT_SIZE;
+			memcpy(offset, &nameLength, BYTE_SIZE);
+			offset += BYTE_SIZE;
+			const char *cstr = playersInView[i]->name.c_str();
+			memcpy(offset, cstr, nameLength);
+			offset += nameLength;
+			actualSize += nameLength;
+		}
 
-        send(data, actualSize); // Send data
+		actualSize = (int)(offset - data);//+= (unitDataSize * unitsInView) +(floaterDataSize * floatersInView) +(bulletDataSize * bulletsInView) +(playerDataSize * numPlayersInView);
 
-        free(data);
-    }
+		offset = data;
+		memcpy(offset, &code, BYTE_SIZE);
+		offset += BYTE_SIZE;
+		memcpy(offset, &unitsInView, SHORT_SIZE);
+		offset += SHORT_SIZE;
+		memcpy(offset, &floatersInView, SHORT_SIZE);
+		offset += SHORT_SIZE;
+		memcpy(offset, &bulletsInView, SHORT_SIZE);
+		offset += SHORT_SIZE;
+		memcpy(offset, &numPlayersInView, SHORT_SIZE);
+		offset += SHORT_SIZE;
+		if (mode == MODE_BR) {
+			memcpy(offset, &width, FLOAT_SIZE);
+			offset += FLOAT_SIZE;
+			memcpy(offset, &height, FLOAT_SIZE);
+			offset += FLOAT_SIZE;
+		}
 
-    void emitStash(byte notify) {
-        int totalSize = BYTE_SIZE + BYTE_SIZE +(INT_SIZE *(MATERIAL_NUM + 1)); // code, notify, material 1 ... material x, score
-        byte *data = static_cast<byte *>(malloc(totalSize));
+		// Thing was here(actualSize = offset;//+= ...)
 
-        byte code = SERVER_CODE_STASH;
-        byte notifyByte = 0;
+		send(data, actualSize); // Send data
 
-        byte *offset = data;
-        memcpy(offset, &code, BYTE_SIZE);
-        memcpy(offset + BYTE_SIZE, &notify, BYTE_SIZE);
+		free(data);
+	}
 
-        offset += BYTE_SIZE + BYTE_SIZE;
-        for (int i = 0; i < MATERIAL_NUM; i++) {
-            memcpy(offset, &stash[i], INT_SIZE);
-            offset += INT_SIZE;
-        }
+	void emitStash(byte notify) {
+		int totalSize = BYTE_SIZE + BYTE_SIZE +(INT_SIZE *(MATERIAL_NUM + 1)); // code, notify, material 1 ... material x, score
+		byte *data = static_cast<byte *>(malloc(totalSize));
 
-        memcpy(offset, &score, INT_SIZE);
+		byte code = SERVER_CODE_STASH;
+		byte notifyByte = 0;
 
-        send(data, totalSize); // Send data
+		byte *offset = data;
+		memcpy(offset, &code, BYTE_SIZE);
+		memcpy(offset + BYTE_SIZE, &notify, BYTE_SIZE);
 
-        free(data);
-    }
+		offset += BYTE_SIZE + BYTE_SIZE;
+		for (int i = 0; i < MATERIAL_NUM; i++) {
+			memcpy(offset, &stash[i], INT_SIZE);
+			offset += INT_SIZE;
+		}
+
+		memcpy(offset, &score, INT_SIZE);
+
+		send(data, totalSize); // Send data
+
+		free(data);
+	}
 };
 
 bool Unit::update() {
 	ox = x;
 	oy = y;
-    bool touchingWall = updateBody();
+	bool touchingWall = updateBody();
 	bool alive = true;
 
 	if (mode == MODE_BR && touchingWall) {
@@ -1543,29 +1543,29 @@ bool Unit::update() {
 	}
 
 	if (alive) {
-	    if (hp < mhp) {
-	        hp += (mhp * regen);
-	    }
+		if (hp < mhp) {
+			hp += (mhp * regen);
+		}
 
-	    angle += spinAnimation;
+		angle += spinAnimation;
 
-	    if (parent != NULL && parentJoint == NULL) {
-	        float totalDistance = parent->size;
-	        if (bodyType == SHAPE_CIRCLE) {
-	            totalDistance += size;
-	        } else if (bodyType == SHAPE_TRIANGLE) {
-	            totalDistance += size / 2;
-	        }
-	        pos position = pfa(parent->x, parent->y, angleFromParent, totalDistance);
-	        x = position.x;
-	        y = position.y;
-	        body->SetTransform(b2Vec2(x, y), angleFromParent + M_PI / 2);
-	        b2WeldJointDef jointDef;
-	        jointDef.Initialize(parent->body, body, parent->body->GetWorldCenter());
-	        parentJoint = world.CreateJoint(&jointDef);
-	        byte dummy = 0;
-	        parentJoint->SetUserData(&dummy);
-	    }
+		if (parent != NULL && parentJoint == NULL) {
+			float totalDistance = parent->size;
+			if (bodyType == SHAPE_CIRCLE) {
+				totalDistance += size;
+			} else if (bodyType == SHAPE_TRIANGLE) {
+				totalDistance += size / 2;
+			}
+			pos position = pfa(parent->x, parent->y, angleFromParent, totalDistance);
+			x = position.x;
+			y = position.y;
+			body->SetTransform(b2Vec2(x, y), angleFromParent + M_PI / 2);
+			b2WeldJointDef jointDef;
+			jointDef.Initialize(parent->body, body, parent->body->GetWorldCenter());
+			parentJoint = world.CreateJoint(&jointDef);
+			byte dummy = 0;
+			parentJoint->SetUserData(&dummy);
+		}
 
 		if (body != NULL) {
 			v = body->GetLinearVelocity();
@@ -1576,8 +1576,8 @@ bool Unit::update() {
 			if (owner->core != NULL) {
 				owner->core->hp = owner->core->mhp;
 			}
-	        owner->emitStash(1);
-	        delete this; // deletes unit
+			owner->emitStash(1);
+			delete this; // deletes unit
 			owner->calculateScale();
 			owner->calculateWeight();
 			return false;
@@ -1590,35 +1590,35 @@ bool Unit::update() {
 }
 
 void activateBasicTurret(Unit *u) {
-    fire(u, u->x, u->y, 0);
+	fire(u, u->x, u->y, 0);
 }
 
 void activateCore(Unit *u) {
-    fire(u, u->x, u->y, 0);
+	fire(u, u->x, u->y, 0);
 }
 
 void activateSniperTurret(Unit *u) {
-    fire(u, u->x, u->y, 0);
+	fire(u, u->x, u->y, 0);
 }
 
 void activateTwinTurret(Unit *u) {
-    pos position = pfa(u->x, u->y, u->angle + M_PI / 2 + ((M_PI / 2) * u->lastFireSide), unitDefs[u->unitType].bulletSize);
-    fire(u, position.x, position.y, 0);
-    if (u->lastFireSide > 0) {
-        u->lastFireSide = -1;
-    } else {
-        u->lastFireSide = 1;
-    }
+	pos position = pfa(u->x, u->y, u->angle + M_PI / 2 + ((M_PI / 2) * u->lastFireSide), unitDefs[u->unitType].bulletSize);
+	fire(u, position.x, position.y, 0);
+	if (u->lastFireSide > 0) {
+		u->lastFireSide = -1;
+	} else {
+		u->lastFireSide = 1;
+	}
 }
 
 void activateCannonTurret(Unit *u) {
-    fire(u, u->x, u->y, 0);
+	fire(u, u->x, u->y, 0);
 }
 
 /*
 Thread 1 "a.out" received signal SIGSEGV, Segmentation fault.
 0x0000000000404285 in activateHealingUnit (u=0x73c990) at main.cpp:1469
-1469    main.cpp: No such file or directory.
+1469	main.cpp: No such file or directory.
 #0  0x0000000000404285 in activateHealingUnit (u=0x73c990) at main.cpp:1469
 #1  0x00000000004046b6 in Unit::activate (this=0x73c990) at main.cpp:1530
 #2  0x000000000040c155 in Player::update (this=0x6846d0, timeMult=1) at main.cpp:894
@@ -1627,161 +1627,161 @@ Thread 1 "a.out" received signal SIGSEGV, Segmentation fault.
 
 void activateHealingUnit(Unit *u) {
 	if (u->parent != NULL) {
-	    u->parent->hp += u->heal; // TODO: seg fault here
-	    if (u->parent->hp > u->parent->mhp) {
-	        u->parent->hp = u->parent->mhp;
-	    }
-	    // u->children//unitsMutex.lock();
-	    for (vector<Unit *>::iterator it = u->childrenUnits.begin(); it != u->childrenUnits.end(); ++it) {
-	        Unit *cu = *it;
-	        cu->hp += u->heal;
-	        if (cu->hp > cu->mhp) {
-	            cu->hp = cu->mhp;
-	        }
-	    }
-	    // u->children//unitsMutex.unlock();
+		u->parent->hp += u->heal; // TODO: seg fault here
+		if (u->parent->hp > u->parent->mhp) {
+			u->parent->hp = u->parent->mhp;
+		}
+		// u->children//unitsMutex.lock();
+		for (vector<Unit *>::iterator it = u->childrenUnits.begin(); it != u->childrenUnits.end(); ++it) {
+			Unit *cu = *it;
+			cu->hp += u->heal;
+			if (cu->hp > cu->mhp) {
+				cu->hp = cu->mhp;
+			}
+		}
+		// u->children//unitsMutex.unlock();
 	}
 }
 
 void activateAlchemyLab(Unit *u) {
-    bool cycleFound = false;
+	bool cycleFound = false;
 	int targetMaterial = u->material + 1;
-    int i = 0;
-    while (!cycleFound && i < MATERIAL_NUM - 1) {
-        int ownAmount = 0;
-        int targetAmount = 0;
-        if (u->alchemyCycle > targetMaterial) {
-            ownAmount = expScale(1, u->alchemyCycle - targetMaterial);
-            targetAmount = 1;
-        } else {
-            ownAmount = 1;
-            targetAmount = expScale(1, targetMaterial - u->alchemyCycle);
-        }
-        if (u->alchemyCycle != targetMaterial && u->owner->stash[u->alchemyCycle] >= targetAmount) {
-            u->owner->stash[targetMaterial] += ownAmount;
-            u->owner->stash[u->alchemyCycle] -= targetAmount;
-            if (u->owner->stash[u->alchemyCycle] < 0) {
-                u->owner->stash[u->alchemyCycle] = 0;
-            }
-            u->alchemyCycle++;
-            if (u->alchemyCycle >= MATERIAL_NUM) {
-                u->alchemyCycle = 0;
-            }
-            u->owner->emitStash(0);
-            break;
-        } else {
-            u->alchemyCycle++;
-        }
-        if (u->alchemyCycle >= MATERIAL_NUM) {
-            u->alchemyCycle = 0;
-        }
-        i++;
-    }
+	int i = 0;
+	while (!cycleFound && i < MATERIAL_NUM - 1) {
+		int ownAmount = 0;
+		int targetAmount = 0;
+		if (u->alchemyCycle > targetMaterial) {
+			ownAmount = expScale(1, u->alchemyCycle - targetMaterial);
+			targetAmount = 1;
+		} else {
+			ownAmount = 1;
+			targetAmount = expScale(1, targetMaterial - u->alchemyCycle);
+		}
+		if (u->alchemyCycle != targetMaterial && u->owner->stash[u->alchemyCycle] >= targetAmount) {
+			u->owner->stash[targetMaterial] += ownAmount;
+			u->owner->stash[u->alchemyCycle] -= targetAmount;
+			if (u->owner->stash[u->alchemyCycle] < 0) {
+				u->owner->stash[u->alchemyCycle] = 0;
+			}
+			u->alchemyCycle++;
+			if (u->alchemyCycle >= MATERIAL_NUM) {
+				u->alchemyCycle = 0;
+			}
+			u->owner->emitStash(0);
+			break;
+		} else {
+			u->alchemyCycle++;
+		}
+		if (u->alchemyCycle >= MATERIAL_NUM) {
+			u->alchemyCycle = 0;
+		}
+		i++;
+	}
 }
 
 void activateOctaTurret(Unit *u) {
-    for (int i = 0; i < 8; i++) {
-        fire(u, u->x, u->y,((M_PI * 2) / 8) * i);
-    }
+	for (int i = 0; i < 8; i++) {
+		fire(u, u->x, u->y,((M_PI * 2) / 8) * i);
+	}
 }
 
 void(*activateFunctions[UNIT_TYPE_NUM])(Unit *) = {activateCore, NULL, activateBasicTurret, activateSniperTurret, activateTwinTurret, activateCannonTurret, activateHealingUnit, activateAlchemyLab, NULL, activateOctaTurret};
 
 void Unit::activate() {
-    if (getTime() - lastActivated > activationReloadTime) {
-        activateFunctions[unitType](this);
-        lastActivated = system_clock::now().time_since_epoch() / milliseconds(1);
-    }
+	if (getTime() - lastActivated > activationReloadTime) {
+		activateFunctions[unitType](this);
+		lastActivated = system_clock::now().time_since_epoch() / milliseconds(1);
+	}
 }
 
 void Unit::updateStats() {
-    owner->speedMult -= speedBoost;
-    hp = amountScale(unitDefs[unitType].hp, material);
-    mhp = hp;
-    bulletDamage = amountScale(unitDefs[unitType].bulletDamage, material);
-    speedBoost = unitDefs[unitType].speedBoost + amountScale(unitDefs[unitType].speedBoostUpgrade, material);
-    spinAnimation = amountScale(unitDefs[unitType].spinAnimation, material);
-    owner->speedMult += speedBoost;
+	owner->speedMult -= speedBoost;
+	hp = amountScale(unitDefs[unitType].hp, material);
+	mhp = hp;
+	bulletDamage = amountScale(unitDefs[unitType].bulletDamage, material);
+	speedBoost = unitDefs[unitType].speedBoost + amountScale(unitDefs[unitType].speedBoostUpgrade, material);
+	spinAnimation = amountScale(unitDefs[unitType].spinAnimation, material);
+	owner->speedMult += speedBoost;
 	if (owner->speedMult > 2) {
 		owner->speedMult = 2;
 	}
-    collisionDamage = amountScale(unitDefs[unitType].collisionDamage, material);
-    heal = amountScale(unitDefs[unitType].heal, material);
+	collisionDamage = amountScale(unitDefs[unitType].collisionDamage, material);
+	heal = amountScale(unitDefs[unitType].heal, material);
 }
 
 void Object::createBody() {
-    b2BodyDef bodyDef;
-    bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(x, y);
-    bodyDef.linearDamping = linearDamping;
-    bodyDef.angularDamping = angularDamping;
-    bodyDef.awake = true;
-    body = world.CreateBody(&bodyDef);
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(x, y);
+	bodyDef.linearDamping = linearDamping;
+	bodyDef.angularDamping = angularDamping;
+	bodyDef.awake = true;
+	body = world.CreateBody(&bodyDef);
 
-    b2FixtureDef fixtureDef;
+	b2FixtureDef fixtureDef;
 
-    b2CircleShape dynamicCircle;
-    b2PolygonShape dynamicPolygon;
+	b2CircleShape dynamicCircle;
+	b2PolygonShape dynamicPolygon;
 
-    float areaRatio = 1;
+	float areaRatio = 1;
 
-    if (bodyType == SHAPE_CIRCLE) {
-        bodyDef.fixedRotation = true;
-        dynamicCircle.m_p.Set(0.0f, 0.0f);
-        dynamicCircle.m_radius = size;
-        fixtureDef.shape = &dynamicCircle;
-        areaRatio = (M_PI * pow(1, 2)) /(M_PI * pow(size, 2));
-    } else if (bodyType = SHAPE_TRIANGLE) {
-        b2Vec2 vertices[3];
-        vertices[0].Set(0, -size);
-        vertices[1].Set(size, size);
-        vertices[2].Set(-size, size);
-        dynamicPolygon.Set(vertices, 3);
-        fixtureDef.shape = &dynamicPolygon;
-        areaRatio = (M_PI * pow(1, 2)) /(pow(size, 2) * 2);
-    }
+	if (bodyType == SHAPE_CIRCLE) {
+		bodyDef.fixedRotation = true;
+		dynamicCircle.m_p.Set(0.0f, 0.0f);
+		dynamicCircle.m_radius = size;
+		fixtureDef.shape = &dynamicCircle;
+		areaRatio = (M_PI * pow(1, 2)) /(M_PI * pow(size, 2));
+	} else if (bodyType = SHAPE_TRIANGLE) {
+		b2Vec2 vertices[3];
+		vertices[0].Set(0, -size);
+		vertices[1].Set(size, size);
+		vertices[2].Set(-size, size);
+		dynamicPolygon.Set(vertices, 3);
+		fixtureDef.shape = &dynamicPolygon;
+		areaRatio = (M_PI * pow(1, 2)) /(pow(size, 2) * 2);
+	}
 
-    fixtureDef.density = density * areaRatio;
-    fixtureDef.friction = friction;
-    body->CreateFixture(&fixtureDef);
+	fixtureDef.density = density * areaRatio;
+	fixtureDef.friction = friction;
+	body->CreateFixture(&fixtureDef);
 
-    if (type == TYPE_FLOATER) {
-        body->SetTransform(body->GetPosition(),(float)(rand()) /(RAND_MAX / M_PI));
-    } else if (type == TYPE_UNIT) {
-        Unit *u = (Unit *) this;
-        u->body->SetTransform(body->GetPosition(), u->angleFromParent + M_PI / 2);
-    }
+	if (type == TYPE_FLOATER) {
+		body->SetTransform(body->GetPosition(),(float)(rand()) /(RAND_MAX / M_PI));
+	} else if (type == TYPE_UNIT) {
+		Unit *u = (Unit *) this;
+		u->body->SetTransform(body->GetPosition(), u->angleFromParent + M_PI / 2);
+	}
 
-    dataPointer *dp = new dataPointer();
-    dp->type = type;
-    dp->data = this;
-    body->SetUserData(dp);
+	dataPointer *dp = new dataPointer();
+	dp->type = type;
+	dp->data = this;
+	body->SetUserData(dp);
 
-    b2Vec2 position = body->GetPosition();
+	b2Vec2 position = body->GetPosition();
 }
 
 void handleHealthGlobal(int type, void *object, float damage, Player *player) {
-    if (type == TYPE_UNIT) {
-        Unit *u = (Unit *) object;
-        u->handleHealth(damage, player);
-    } else if (type == TYPE_FLOATER) {
-        Floater *f = (Floater *) object;
-        f->handleHealth(damage, player);
-    }
+	if (type == TYPE_UNIT) {
+		Unit *u = (Unit *) object;
+		u->handleHealth(damage, player);
+	} else if (type == TYPE_FLOATER) {
+		Floater *f = (Floater *) object;
+		f->handleHealth(damage, player);
+	}
 }
 
 void Object::bulletHit(Bullet *bullet) {
-    handleHealthGlobal(type, this, bullet->damage, bullet->owner);
+	handleHealthGlobal(type, this, bullet->damage, bullet->owner);
 }
 
 void Object::collisionHit(int type, void *object) {
-    if (type == TYPE_UNIT && (mode == MODE_FFA || brState == STATE_PLAYING)) {
-        Unit *u = (Unit *) object;
-        handleHealthGlobal(this->type, this, u->collisionDamage, u->owner);
-    } else if (type == TYPE_FLOATER) {
-        Floater *f = (Floater *) object;
-        handleHealthGlobal(this->type, this, f->collisionDamage, NULL);
-    }
+	if (type == TYPE_UNIT && (mode == MODE_FFA || brState == STATE_PLAYING)) {
+		Unit *u = (Unit *) object;
+		handleHealthGlobal(this->type, this, u->collisionDamage, u->owner);
+	} else if (type == TYPE_FLOATER) {
+		Floater *f = (Floater *) object;
+		handleHealthGlobal(this->type, this, f->collisionDamage, NULL);
+	}
 }
 
 bool Unit::handleHealth(float damage, Player *player) {
@@ -1796,33 +1796,33 @@ bool Unit::handleHealth(float damage, Player *player) {
 			takeDamage = (brState == STATE_PLAYING);
 		}
 		if (takeDamage) {
-		    hp -= damage;
-		    if (hp <= 0) {
-		        if (unitType == UNIT_CORE) {
-		            if (mode == MODE_FFA) {
+			hp -= damage;
+			if (hp <= 0) {
+				if (unitType == UNIT_CORE) {
+					if (mode == MODE_FFA) {
 						owner->die(player);
 					} else {
 						owner->emitBrRank();
 						owner->kick();
 					}
-		        } else {
-		            if (player != NULL) {
-		                int amount = costScale(unitDefs[unitType].cost / 2, material);
-		                player->stash[material] += amount;
-		                player->score += amount;
-		            }
+				} else {
+					if (player != NULL) {
+						int amount = costScale(unitDefs[unitType].cost / 2, material);
+						player->stash[material] += amount;
+						player->score += amount;
+					}
 					Player *myOwner = owner;
-		            delete this; // ! deletes unit
+					delete this; // ! deletes unit
 					if (myOwner != NULL) {
-		            	myOwner->calculateScale();
+						myOwner->calculateScale();
 						myOwner->calculateWeight();
 					}
-		        }
-		        if (player != NULL) {
-		            player->emitStash(1);
-		        }
+				}
+				if (player != NULL) {
+					player->emitStash(1);
+				}
 				return false;
-		    }
+			}
 		}
 	}
 	return true;
@@ -1830,267 +1830,267 @@ bool Unit::handleHealth(float damage, Player *player) {
 
 void Floater::handleHealth(float damage, Player *player) {
 	if (mode == MODE_FFA || brState == STATE_PLAYING) {
-	    hp -= damage;
-	    if (hp <= 0) {
-	        if (player != NULL) { // : nullify bullet owner when that owner leaves the game
-	            int amount = rewardScale(sizeTier + 1, material);// * (floaterRewardMult / pow(2, material));
+		hp -= damage;
+		if (hp <= 0) {
+			if (player != NULL) { // : nullify bullet owner when that owner leaves the game
+				int amount = rewardScale(sizeTier + 1, material);// * (floaterRewardMult / pow(2, material));
 				// cout << floaterRewardMult << ", " << amount << ", " << static_cast<int>(material) << ", " << rewardScale(sizeTier + 1, material) << endl;
 				// cout << "?" << amount << endl;
 				/*if (floaterRewardMult != 1) */amount *= /*(*/floaterRewardMult;// / pow(2, material));
 				// cout << "!" << amount << endl;
-	            player->stash[material] += amount;
-	            player->score += amount;
-	            player->emitStash(0);
-	        }
-	        if (dyingStage == 0 && desiredFloaters - floaters.size() >= 0) {
+				player->stash[material] += amount;
+				player->score += amount;
+				player->emitStash(0);
+			}
+			if (dyingStage == 0 && desiredFloaters - floaters.size() >= 0) {
 				pos position = randomSpawnPosition();
 				new Floater(material, position.x, position.y);
 			}
-	        dyingStage = 1;
-	    }
+			dyingStage = 1;
+		}
 	}
 }
 
 Floater::~Floater() {
-    if (body != NULL) {
-        delete(dataPointer *)(body->GetUserData());
-        body->SetUserData(NULL);
-    }
-    //floatersMutex.lock();
-    //floaters.erase(this);//remove(floaters.begin(), floaters.end(), this), floaters.end());
-    floaters.erase(remove(floaters.begin(), floaters.end(), this), floaters.end());
-    //floatersMutex.unlock();
-    // for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
-    //     Player *p = *it;
-    //     p->visibleFloaters.erase(this);//remove(p->visibleFloaters.begin(), p->visibleFloaters.end(), this), p->visibleFloaters.end());
-    // }
+	if (body != NULL) {
+		delete(dataPointer *)(body->GetUserData());
+		body->SetUserData(NULL);
+	}
+	//floatersMutex.lock();
+	//floaters.erase(this);//remove(floaters.begin(), floaters.end(), this), floaters.end());
+	floaters.erase(remove(floaters.begin(), floaters.end(), this), floaters.end());
+	//floatersMutex.unlock();
+	// for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
+	//	 Player *p = *it;
+	//	 p->visibleFloaters.erase(this);//remove(p->visibleFloaters.begin(), p->visibleFloaters.end(), this), p->visibleFloaters.end());
+	// }
 }
 
 Unit::~Unit() {
-    if (body != NULL) {
-        delete(dataPointer *)(body->GetUserData());
-        body->SetUserData(NULL);
-    }
-    if (parentJoint != NULL) {
-        parentJoint->SetUserData(NULL);
-    }
-    // owner->children//unitsMutex.lock();
-    owner->childrenUnits.erase(remove(owner->childrenUnits.begin(), owner->childrenUnits.end(), this), owner->childrenUnits.end());//owner->childrenUnits.erase(this);
-    // owner->children//unitsMutex.unlock();
-    if (unitType != UNIT_CORE) {
-        if (parent != NULL) {
-            // parent->children//unitsMutex.lock();
-            parent->childrenUnits.erase(remove(parent->childrenUnits.begin(), parent->childrenUnits.end(), this), parent->childrenUnits.end());
-            // parent->children//unitsMutex.unlock();
-        }
-    }
-    // children//unitsMutex.lock();
-    for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
-        Unit *u = *it;
-        if (u->parentJoint != NULL) {
-            u->parentJoint->SetUserData(NULL);
-        }
-        u->parentJoint = NULL;
-        if (parent != NULL) {
-            u->parent = parent;
-            // u->parent->children//unitsMutex.lock();
-            u->parent->childrenUnits.push_back(u);
-            // u->parent->children//unitsMutex.unlock();
-            u->angleFromParent = afp(parent->x, parent->y, u->x, u->y) + M_PI;
-        } else {
-            u->parent = NULL;
-        }
-    }
-    // children//unitsMutex.unlock();
-    owner->speedMult -= speedBoost;
-    //unitsMutex.lock();
-    units.erase(remove(units.begin(), units.end(), this), units.end());//units.erase(this);
-    //unitsMutex.unlock();
+	if (body != NULL) {
+		delete(dataPointer *)(body->GetUserData());
+		body->SetUserData(NULL);
+	}
+	if (parentJoint != NULL) {
+		parentJoint->SetUserData(NULL);
+	}
+	// owner->children//unitsMutex.lock();
+	owner->childrenUnits.erase(remove(owner->childrenUnits.begin(), owner->childrenUnits.end(), this), owner->childrenUnits.end());//owner->childrenUnits.erase(this);
+	// owner->children//unitsMutex.unlock();
+	if (unitType != UNIT_CORE) {
+		if (parent != NULL) {
+			// parent->children//unitsMutex.lock();
+			parent->childrenUnits.erase(remove(parent->childrenUnits.begin(), parent->childrenUnits.end(), this), parent->childrenUnits.end());
+			// parent->children//unitsMutex.unlock();
+		}
+	}
+	// children//unitsMutex.lock();
+	for (vector<Unit *>::iterator it = childrenUnits.begin(); it != childrenUnits.end(); ++it) {
+		Unit *u = *it;
+		if (u->parentJoint != NULL) {
+			u->parentJoint->SetUserData(NULL);
+		}
+		u->parentJoint = NULL;
+		if (parent != NULL) {
+			u->parent = parent;
+			// u->parent->children//unitsMutex.lock();
+			u->parent->childrenUnits.push_back(u);
+			// u->parent->children//unitsMutex.unlock();
+			u->angleFromParent = afp(parent->x, parent->y, u->x, u->y) + M_PI;
+		} else {
+			u->parent = NULL;
+		}
+	}
+	// children//unitsMutex.unlock();
+	owner->speedMult -= speedBoost;
+	//unitsMutex.lock();
+	units.erase(remove(units.begin(), units.end(), this), units.end());//units.erase(this);
+	//unitsMutex.unlock();
 }
 
 Bullet::~Bullet() {
-    if (body != NULL) {
-        delete(dataPointer *)(body->GetUserData());
-        body->SetUserData(NULL);
-    }
-    if (owner != NULL) {
-        // owner->children//bulletsMutex.lock();
-        owner->childrenBullets.erase(remove(owner->childrenBullets.begin(), owner->childrenBullets.end(), this), owner->childrenBullets.end());//owner->childrenBullets.erase(this);
-        // owner->children//bulletsMutex.unlock();
-    }
-    bullets.erase(remove(bullets.begin(),bullets.end(), this), bullets.end());
+	if (body != NULL) {
+		delete(dataPointer *)(body->GetUserData());
+		body->SetUserData(NULL);
+	}
+	if (owner != NULL) {
+		// owner->children//bulletsMutex.lock();
+		owner->childrenBullets.erase(remove(owner->childrenBullets.begin(), owner->childrenBullets.end(), this), owner->childrenBullets.end());//owner->childrenBullets.erase(this);
+		// owner->children//bulletsMutex.unlock();
+	}
+	bullets.erase(remove(bullets.begin(),bullets.end(), this), bullets.end());
 }
 
 class contactListener: public b2ContactListener {
-    void BeginContact(b2Contact* contact) {
-        void *p1 = contact->GetFixtureA()->GetBody()->GetUserData();
-        void *p2 = contact->GetFixtureB()->GetBody()->GetUserData();
-        if (p1 != NULL && p2 != NULL) {
-            dataPointer *d1 = (dataPointer *)(p1);
-            dataPointer *d2 = (dataPointer *)(p2);
-            if ((d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) ||(d1->type == TYPE_UNIT && d2->type == TYPE_BULLET)) {
-                Bullet *b;
-                Unit *u;
-                if (d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) {
-                    b = (Bullet *) d1->data;
-                    u = (Unit *) d2->data;
-                } else {
-                    b = (Bullet *) d2->data;
-                    u = (Unit *) d1->data;
-                }
+	void BeginContact(b2Contact* contact) {
+		void *p1 = contact->GetFixtureA()->GetBody()->GetUserData();
+		void *p2 = contact->GetFixtureB()->GetBody()->GetUserData();
+		if (p1 != NULL && p2 != NULL) {
+			dataPointer *d1 = (dataPointer *)(p1);
+			dataPointer *d2 = (dataPointer *)(p2);
+			if ((d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) ||(d1->type == TYPE_UNIT && d2->type == TYPE_BULLET)) {
+				Bullet *b;
+				Unit *u;
+				if (d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) {
+					b = (Bullet *) d1->data;
+					u = (Unit *) d2->data;
+				} else {
+					b = (Bullet *) d2->data;
+					u = (Unit *) d1->data;
+				}
 
-                u->Object::bulletHit(b);
+				u->Object::bulletHit(b);
 
-                delete b;
-            } else if ((d1->type == TYPE_BULLET && d2->type == TYPE_FLOATER) ||(d1->type == TYPE_FLOATER && d2->type == TYPE_BULLET)) {
-                Bullet *b;
-                Floater *f;
-                if (d1->type == TYPE_BULLET && d2->type == TYPE_FLOATER) {
-                    b = (Bullet *) d1->data;
-                    f = (Floater *) d2->data;
-                } else {
-                    b = (Bullet *) d2->data;
-                    f = (Floater *) d1->data;
-                }
+				delete b;
+			} else if ((d1->type == TYPE_BULLET && d2->type == TYPE_FLOATER) ||(d1->type == TYPE_FLOATER && d2->type == TYPE_BULLET)) {
+				Bullet *b;
+				Floater *f;
+				if (d1->type == TYPE_BULLET && d2->type == TYPE_FLOATER) {
+					b = (Bullet *) d1->data;
+					f = (Floater *) d2->data;
+				} else {
+					b = (Bullet *) d2->data;
+					f = (Floater *) d1->data;
+				}
 
-                f->Object::bulletHit(b);
+				f->Object::bulletHit(b);
 
-                delete b;
-            } else if (d1->type == TYPE_UNIT && d2->type == TYPE_UNIT) {
-                Unit *u1;
-                Unit *u2;
-                u1 = (Unit *) d1->data;
-                u2 = (Unit *) d2->data;
+				delete b;
+			} else if (d1->type == TYPE_UNIT && d2->type == TYPE_UNIT) {
+				Unit *u1;
+				Unit *u2;
+				u1 = (Unit *) d1->data;
+				u2 = (Unit *) d2->data;
 
-                if (u1->owner != u2->owner) {
-                    u1->Object::collisionHit(TYPE_UNIT, u2);
-                    u2->Object::collisionHit(TYPE_UNIT, u1);
-                }
-            } else if ((d1->type == TYPE_UNIT && d2->type == TYPE_FLOATER) ||(d1->type == TYPE_FLOATER && d2->type == TYPE_UNIT)) {
-                Unit *u;
-                Floater *f;
-                if (d1->type == TYPE_UNIT && d2->type == TYPE_FLOATER) {
-                    u = (Unit *) d1->data;
-                    f = (Floater *) d2->data;
-                } else {
-                    u = (Unit *) d2->data;
-                    f = (Floater *) d1->data;
-                }
+				if (u1->owner != u2->owner) {
+					u1->Object::collisionHit(TYPE_UNIT, u2);
+					u2->Object::collisionHit(TYPE_UNIT, u1);
+				}
+			} else if ((d1->type == TYPE_UNIT && d2->type == TYPE_FLOATER) ||(d1->type == TYPE_FLOATER && d2->type == TYPE_UNIT)) {
+				Unit *u;
+				Floater *f;
+				if (d1->type == TYPE_UNIT && d2->type == TYPE_FLOATER) {
+					u = (Unit *) d1->data;
+					f = (Floater *) d2->data;
+				} else {
+					u = (Unit *) d2->data;
+					f = (Floater *) d1->data;
+				}
 
-                f->Object::collisionHit(TYPE_UNIT, u);
-                u->Object::collisionHit(TYPE_FLOATER, f);
-            }
-        }
-    }
+				f->Object::collisionHit(TYPE_UNIT, u);
+				u->Object::collisionHit(TYPE_FLOATER, f);
+			}
+		}
+	}
 };
 
 class contactFilter: public b2ContactFilter {
-    bool ShouldCollide(b2Fixture* a, b2Fixture* b) {
-        bool collide = true;
+	bool ShouldCollide(b2Fixture* a, b2Fixture* b) {
+		bool collide = true;
 
-        void *p1 = a->GetBody()->GetUserData();
-        void *p2 = b->GetBody()->GetUserData();
-        if (p1 != NULL && p2 != NULL) {
-            dataPointer *d1 = (dataPointer *)(p1);
-            dataPointer *d2 = (dataPointer *)(p2);
+		void *p1 = a->GetBody()->GetUserData();
+		void *p2 = b->GetBody()->GetUserData();
+		if (p1 != NULL && p2 != NULL) {
+			dataPointer *d1 = (dataPointer *)(p1);
+			dataPointer *d2 = (dataPointer *)(p2);
 
-            if (d1->type == TYPE_BULLET && d2->type == TYPE_BULLET) {
-                collide = false;
-            } else if ((d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) ||(d1->type == TYPE_UNIT && d2->type == TYPE_BULLET)) {
-                Bullet *b;
-                Unit *u;
-                if (d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) {
-                    b = (Bullet *) d1->data;
-                    u = (Unit *) d2->data;
-                } else {
-                    b = (Bullet *) d2->data;
-                    u = (Unit *) d1->data;
-                }
-                if (b->owner == u->owner) {
-                    collide = false;
-                }
-            }
-        }
-        return collide;
-    }
+			if (d1->type == TYPE_BULLET && d2->type == TYPE_BULLET) {
+				collide = false;
+			} else if ((d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) ||(d1->type == TYPE_UNIT && d2->type == TYPE_BULLET)) {
+				Bullet *b;
+				Unit *u;
+				if (d1->type == TYPE_BULLET && d2->type == TYPE_UNIT) {
+					b = (Bullet *) d1->data;
+					u = (Unit *) d2->data;
+				} else {
+					b = (Bullet *) d2->data;
+					u = (Unit *) d1->data;
+				}
+				if (b->owner == u->owner) {
+					collide = false;
+				}
+			}
+		}
+		return collide;
+	}
 };
 
 // void statusServer() {
-//     int serverSocket = createServerSocket(7000);
-//     char *responseStart = "HTTP/2.0 200 Found\nAccess-Control-Allow-Origin: *\nContent-Type: text/plain\n\n";
-//     char *responseFormat = "###\n###\n###.###.###\n###\n############";
-//     cout << "Status server listening on port 7000" << endl;
+//	 int serverSocket = createServerSocket(7000);
+//	 char *responseStart = "HTTP/2.0 200 Found\nAccess-Control-Allow-Origin: *\nContent-Type: text/plain\n\n";
+//	 char *responseFormat = "###\n###\n###.###.###\n###\n############";
+//	 cout << "Status server listening on port 7000" << endl;
 //
-//     while (true) {
-//         int connectionSocket = waitForConnection(serverSocket);
+//	 while (true) {
+//		 int connectionSocket = waitForConnection(serverSocket);
 //
 // 		int n = maxPlayers;
 // 		if (draining) {
 // 			n = -1;
 // 		}
-//         char message[strlen(responseStart) + strlen(responseFormat)];
+//		 char message[strlen(responseStart) + strlen(responseFormat)];
 // 		if (averageTime == 0) {
 // 			averageTime = 1000;
 // 		}
-//         sprintf(message, "%s%d\n%d\n%s\n%d\n%d", responseStart, static_cast<int>(players.size()), n, VERSION, 1000 / averageTime, restarts);
-//         write(connectionSocket, message, strlen(message));
-//         close(connectionSocket);
-//     }
+//		 sprintf(message, "%s%d\n%d\n%s\n%d\n%d", responseStart, static_cast<int>(players.size()), n, VERSION, 1000 / averageTime, restarts);
+//		 write(connectionSocket, message, strlen(message));
+//		 close(connectionSocket);
+//	 }
 // }
 
 void interface() {
-    int interfaceCode = -1;
-    ifstream in;
-    ofstream out;
-    string data;
-    cout << "Interface listening to /tmp/game" << endl;
-    while (true) {
+	int interfaceCode = -1;
+	ifstream in;
+	ofstream out;
+	string data;
+	cout << "Interface listening to /tmp/game" << endl;
+	while (true) {
 		if (mode == MODE_FFA) {
-        	in.open("/tmp/game");
+			in.open("/tmp/game");
 		} else if (mode == MODE_BR) {
 			in.open("/tmp/br");
 		}
-        getline(in, data);
+		getline(in, data);
 		if (mode == MODE_FFA) {
-        	out.open("/tmp/game", ios::out | ios::trunc);;
+			out.open("/tmp/game", ios::out | ios::trunc);;
 		} else if (mode == MODE_BR) {
 			out.open("/tmp/br", ios::out | ios::trunc);
 		}
-        if (data.length() > 0) {
-            interfaceCode = stoi(data);
-            if (interfaceCode == INTERFACE_DRAIN) {
-                cout << "Draining server" << endl;
-                draining = true;
+		if (data.length() > 0) {
+			interfaceCode = stoi(data);
+			if (interfaceCode == INTERFACE_DRAIN) {
+				cout << "Draining server" << endl;
+				draining = true;
 				drainTime = getTime();
 				if (mode == MODE_BR && brState == STATE_WAITING) {
 					cout << "Exiting due to drain (battle royale)" << endl;
 					updateRestarts(-1);
-			        exit(0);
+					exit(0);
 				}
-            }
-        }
-        in.close();
-        out.close();
+			}
+		}
+		in.close();
+		out.close();
 
 		updateStatus();
 		updateRestarts(0);
 
-        if (lastFrame != 0 && getTime() - lastFrame > FRAME_FROZEN_TIME) {
-            cout << "Exiting due to a frame timeout (infinite loop or low performance)" << endl;
-            exit(0);
-        } else if (drainTime != 0 && getTime() - drainTime > DRAIN_TIMEOUT) {
+		if (lastFrame != 0 && getTime() - lastFrame > FRAME_FROZEN_TIME) {
+			cout << "Exiting due to a frame timeout (infinite loop or low performance)" << endl;
+			exit(0);
+		} else if (drainTime != 0 && getTime() - drainTime > DRAIN_TIMEOUT) {
 			cout << "Exiting due to drain (timeout elapsed)" << endl;
 			updateRestarts(-1);
-            exit(0);
+			exit(0);
 		}
-        sleep(1);
-    }
+		sleep(1);
+	}
 }
 
 int main(int argc, char *argv[]) {
-    cout << "Version " << VERSION << endl;
+	cout << "Version " << VERSION << endl;
 
-    srand(time(0));
+	srand(time(0));
 
 	if (argc > 1) {
 		if (strcmp(argv[1], "br") == 0) {
@@ -2108,108 +2108,108 @@ int main(int argc, char *argv[]) {
 		cout << "Game mode: battle royale" << endl;
 	}
 
-    if (argc > 2) {
-        maxPlayers = atoi(argv[2]);
-    }
+	if (argc > 2) {
+		maxPlayers = atoi(argv[2]);
+	}
 
-    if (argc > 3) {
-        floaterRewardMult = atof(argv[3]);
-    }
+	if (argc > 3) {
+		floaterRewardMult = atof(argv[3]);
+	}
 
-    int m = MATERIAL_NUM - 1;
-    for (int i = 0; i < FLOATER_SPAWN_SERIES_LENGTH; ) {
-        int n = pow(2,(MATERIAL_NUM - 1) - m);
-        for (int j = 0; j < n; j++) {
-            floaterSpawnSeries[i + j] = m - 1;
-        }
-        i += n;
-        m--;
-    }
+	int m = MATERIAL_NUM - 1;
+	for (int i = 0; i < FLOATER_SPAWN_SERIES_LENGTH; ) {
+		int n = pow(2,(MATERIAL_NUM - 1) - m);
+		for (int j = 0; j < n; j++) {
+			floaterSpawnSeries[i + j] = m - 1;
+		}
+		i += n;
+		m--;
+	}
 
 	if (mode == MODE_FFA) resize(0, 1);
 
-    // thread status(statusServer);
-    // thread looper(loop);
-    thread interfaceThread(interface);
+	// thread status(statusServer);
+	// thread looper(loop);
+	thread interfaceThread(interface);
 
-    uWS::Hub h;
+	uWS::Hub h;
 
-    // Define a callback to handle incoming messages
-    h.onMessage([](uWS::WebSocket<uWS::SERVER> *ws, char *data, size_t length, uWS::OpCode opCode) {
-        short code = (short)(data[0]);
+	// Define a callback to handle incoming messages
+	h.onMessage([](uWS::WebSocket<uWS::SERVER> *ws, char *data, size_t length, uWS::OpCode opCode) {
+		short code = (short)(data[0]);
 
-        Player *p = (Player *) ws->getUserData();
+		Player *p = (Player *) ws->getUserData();
 
-        if (p != NULL) {
-            try {
-                bool validCode = true;
-                if (code == CLIENT_CODE_READY && length == CLIENT_LENGTH_READY) {
-                    p->ready = true;
-                    p->giveInfo();
-                } else if (code == CLIENT_CODE_KEY && length == CLIENT_LENGTH_KEY) {
-                    p->keyEvent((byte)(data[1]),(byte)(data[2]));
-                } else if (code == CLIENT_CODE_PLAY && length >= CLIENT_LENGTH_PLAY) {
-                    int nlength = (int) data[1];
+		if (p != NULL) {
+			try {
+				bool validCode = true;
+				if (code == CLIENT_CODE_READY && length == CLIENT_LENGTH_READY) {
+					p->ready = true;
+					p->giveInfo();
+				} else if (code == CLIENT_CODE_KEY && length == CLIENT_LENGTH_KEY) {
+					p->keyEvent((byte)(data[1]),(byte)(data[2]));
+				} else if (code == CLIENT_CODE_PLAY && length >= CLIENT_LENGTH_PLAY) {
+					int nlength = (int) data[1];
 					if (nlength > MAX_NAME_LENGTH) {
 						nlength = MAX_NAME_LENGTH;
 					}
 					if (length == CLIENT_LENGTH_PLAY + nlength) {
-	                    byte socialNum = (byte) data[2];
-	                    char nameArray[nlength + 1];
-	                    for (int i = 0; i < nlength; i++) {
-	                        nameArray[i] = (char) data[i + 3];
-	                    }
-	                    nameArray[nlength] = '\0';
-	                    string nameString(nameArray);
+						byte socialNum = (byte) data[2];
+						char nameArray[nlength + 1];
+						for (int i = 0; i < nlength; i++) {
+							nameArray[i] = (char) data[i + 3];
+						}
+						nameArray[nlength] = '\0';
+						string nameString(nameArray);
 						if (mode == MODE_FFA) {
-	                    	p->play(nameString, socialNum);
+							p->play(nameString, socialNum);
 						} else if (mode == MODE_BR) {
 							p->play(nameString, 1);
 						}
 					}
-                } else if (code == CLIENT_CODE_MOUSE && length == CLIENT_LENGTH_MOUSE) {
-                    int x = 0;
-                    int y = 0;
-                    memcpy(&x, &data[BYTE_SIZE], INT_SIZE);
-                    memcpy(&y, &data[BYTE_SIZE + INT_SIZE], INT_SIZE);
-                    p->mouseEvent(x, y);
-                } else if (code == CLIENT_CODE_MOVE && length == CLIENT_LENGTH_MOVE) {
-                    float angle = 0;
-                    float thrust = 0;
-                    memcpy(&angle, &data[BYTE_SIZE], FLOAT_SIZE);
-                    memcpy(&thrust, &data[BYTE_SIZE + FLOAT_SIZE], FLOAT_SIZE);
-                    p->moveEvent(angle, thrust);
-                } else if (code == CLIENT_CODE_BUILD && length == CLIENT_LENGTH_BUILD) {
-                    unsigned short id = 0;
-                    byte type = 0;
-                    byte material = 0;
-                    float angle = 0;
-                    memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
-                    memcpy(&type, &data[BYTE_SIZE + SHORT_SIZE], BYTE_SIZE);
-                    memcpy(&material, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE], BYTE_SIZE);
-                    memcpy(&angle, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE + BYTE_SIZE], FLOAT_SIZE);
-                    p->build(id, type, material, angle);
-                } else if (code == CLIENT_CODE_UPGRADE && length == CLIENT_LENGTH_UPGRADE) {
-                    unsigned short id = 0;
-                    memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
-                    p->upgrade(id);
-                } else if (code == CLIENT_CODE_DELETE && length == CLIENT_LENGTH_DELETE) {
-                    unsigned short id = 0;
-                    memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
-                    p->deleteUnit(id);
+				} else if (code == CLIENT_CODE_MOUSE && length == CLIENT_LENGTH_MOUSE) {
+					int x = 0;
+					int y = 0;
+					memcpy(&x, &data[BYTE_SIZE], INT_SIZE);
+					memcpy(&y, &data[BYTE_SIZE + INT_SIZE], INT_SIZE);
+					p->mouseEvent(x, y);
+				} else if (code == CLIENT_CODE_MOVE && length == CLIENT_LENGTH_MOVE) {
+					float angle = 0;
+					float thrust = 0;
+					memcpy(&angle, &data[BYTE_SIZE], FLOAT_SIZE);
+					memcpy(&thrust, &data[BYTE_SIZE + FLOAT_SIZE], FLOAT_SIZE);
+					p->moveEvent(angle, thrust);
+				} else if (code == CLIENT_CODE_BUILD && length == CLIENT_LENGTH_BUILD) {
+					unsigned short id = 0;
+					byte type = 0;
+					byte material = 0;
+					float angle = 0;
+					memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
+					memcpy(&type, &data[BYTE_SIZE + SHORT_SIZE], BYTE_SIZE);
+					memcpy(&material, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE], BYTE_SIZE);
+					memcpy(&angle, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE + BYTE_SIZE], FLOAT_SIZE);
+					p->build(id, type, material, angle);
+				} else if (code == CLIENT_CODE_UPGRADE && length == CLIENT_LENGTH_UPGRADE) {
+					unsigned short id = 0;
+					memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
+					p->upgrade(id);
+				} else if (code == CLIENT_CODE_DELETE && length == CLIENT_LENGTH_DELETE) {
+					unsigned short id = 0;
+					memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
+					p->deleteUnit(id);
 				} else if (code == CLIENT_CODE_PING && length == CLIENT_LENGTH_PING) {
 					p->lastPing = getTime();
-                } else {
-                    validCode = false;
-                }
-                if (validCode) {
-                    p->lastActivity = getTime();
-                }
-            } catch(...) {}
-        }
-    });
+				} else {
+					validCode = false;
+				}
+				if (validCode) {
+					p->lastActivity = getTime();
+				}
+			} catch(...) {}
+		}
+	});
 
-    h.onConnection([](uWS::WebSocket<uWS::SERVER> *ws, uWS::HttpRequest req) {
+	h.onConnection([](uWS::WebSocket<uWS::SERVER> *ws, uWS::HttpRequest req) {
 		// const char *address = ws->getAddress().address;
 		// if (addresses.count(address)) {
 		// 	addresses[address]++;
@@ -2223,25 +2223,25 @@ int main(int argc, char *argv[]) {
 		} else if (mode == MODE_BR) {
 			allow = (brState == STATE_WAITING);
 		}
-        if (allow) {
-            pos position = randomSpawnPosition();
-            new Player(ws/*, address*/);
+		if (allow) {
+			pos position = randomSpawnPosition();
+			new Player(ws/*, address*/);
 			if (mode == MODE_FFA) {
 				resize(players.size(), 1);
 			}
-        } else {
-            byte data = SERVER_CODE_KICK;
-            ws->close(1000, &data, sizeof(data));
+		} else {
+			byte data = SERVER_CODE_KICK;
+			ws->close(1000, &data, sizeof(data));
 			// eraseAddress(address);
-        }
-    });
+		}
+	});
 
-    h.onDisconnection([](uWS::WebSocket<uWS::SERVER> *ws, int code, char *message, size_t length) {
-        void *data = ws->getUserData();
-        if (data != NULL) {
-            Player *p = (Player *) data;
+	h.onDisconnection([](uWS::WebSocket<uWS::SERVER> *ws, int code, char *message, size_t length) {
+		void *data = ws->getUserData();
+		if (data != NULL) {
+			Player *p = (Player *) data;
 			// eraseAddress(p->address);
-            p->disconnected = true;
+			p->disconnected = true;
 			if (p->joined) totalJoined--;
 			if (mode == MODE_FFA) {
 				resize(players.size() - 1, -1);
@@ -2249,42 +2249,42 @@ int main(int argc, char *argv[]) {
 				if (brState == STATE_WAITING) resize(totalJoined, -1);
 				updateBr();
 			}
-        }
-    });
+		}
+	});
 
 	// uS::TLS::Context tls = uS::TLS::createContext("ssl/cert.pem", "ssl/key.pem", "dsSZy6pQRNkKAfpRWEdyGm7k");
 
 	int port = 9002;
 	if (mode == MODE_BR) port = 9003;
-    if (h.listen(port/*, tls*/)) {
-        cout << "Game server listening on port " << port << endl;
+	if (h.listen(port/*, tls*/)) {
+		cout << "Game server listening on port " << port << endl;
 		// h.run();
 
 		cout << "Game loop starting" << endl;
-	    cout << "Player capacity: " << MAX_PLAYERS << endl;
+		cout << "Player capacity: " << MAX_PLAYERS << endl;
 
-	    contactListener listener;
-	    world.SetContactListener(&listener);
-	    contactFilter filter;
-	    world.SetContactFilter(&filter);
+		contactListener listener;
+		world.SetContactListener(&listener);
+		contactFilter filter;
+		world.SetContactFilter(&filter);
 
 		float timeStep = 1.0f / FPS;
 		int velocityIterations = 6;
 		int positionIterations = 2;
 
-	    unsigned long lastLeaderboardUpdate = getTime();
-	    // unsigned long lastTest = getTime();
-	    unsigned long targetDuration = 1000 / FPS;
+		unsigned long lastLeaderboardUpdate = getTime();
+		// unsigned long lastTest = getTime();
+		unsigned long targetDuration = 1000 / FPS;
 		unsigned long lastCheck = getTime();
-	    milliseconds duration(targetDuration);
-	    lastFrame = getTime();
-	    // unsigned long totalLastFrame = getTime();
-	    double timeMult = 1;
+		milliseconds duration(targetDuration);
+		lastFrame = getTime();
+		// unsigned long totalLastFrame = getTime();
+		double timeMult = 1;
 
-	    while (true) {
+		while (true) {
 			h.poll();
 
-	        bool emitting = (frameCount % FRAMES_PER_SEND == 0);
+			bool emitting = (frameCount % FRAMES_PER_SEND == 0);
 
 			if (mode == MODE_BR && brState == STATE_PLAYING) {
 				width -= brShrink;
@@ -2295,95 +2295,95 @@ int main(int argc, char *argv[]) {
 				}
 			}
 
-	        //unitsMutex.lock();
-	        for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ) {
-	            Unit *u = *it;
-	            if (u->update()) {
+			//unitsMutex.lock();
+			for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ) {
+				Unit *u = *it;
+				if (u->update()) {
 					++it;
 				}
-	        }
-	        //unitsMutex.unlock();
+			}
+			//unitsMutex.unlock();
 
-	        //floatersMutex.lock();
-	        for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ) {
-	            Floater *f = *it;
-	            if (f->update(emitting)) {
+			//floatersMutex.lock();
+			for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ) {
+				Floater *f = *it;
+				if (f->update(emitting)) {
 					++it;
 				}
-	        }
-	        //floatersMutex.unlock();
+			}
+			//floatersMutex.unlock();
 
-	        for (vector<Bullet *>::iterator it = bullets.begin(); it != bullets.end(); ) {
-	            Bullet *b = *it;
-	            if (b->update()) {
-	                ++it;
-	            }
-	        }
+			for (vector<Bullet *>::iterator it = bullets.begin(); it != bullets.end(); ) {
+				Bullet *b = *it;
+				if (b->update()) {
+					++it;
+				}
+			}
 
-	        //playersMutex.lock();
-	        for (vector<Player *>::iterator it = players.begin(); it != players.end(); ) {
-	            Player *p = *it;
-	            if (p->disconnected) {
-	                delete p;
-	            } else {
-	                p->update(timeMult);
-	                if (p->ready && p->hasPlayed && emitting) {
-	                    p->emit();
-	                }
-	                ++it;
-	            }
-	        }
-	        //playersMutex.unlock();
+			//playersMutex.lock();
+			for (vector<Player *>::iterator it = players.begin(); it != players.end(); ) {
+				Player *p = *it;
+				if (p->disconnected) {
+					delete p;
+				} else {
+					p->update(timeMult);
+					if (p->ready && p->hasPlayed && emitting) {
+						p->emit();
+					}
+					++it;
+				}
+			}
+			//playersMutex.unlock();
 
-	        for (b2Body *body = world.GetBodyList(); body; body = body->GetNext()) {
-	            if (body->GetUserData() == NULL) {
-	                world.DestroyBody(body);
-	            }
-	        }
+			for (b2Body *body = world.GetBodyList(); body; body = body->GetNext()) {
+				if (body->GetUserData() == NULL) {
+					world.DestroyBody(body);
+				}
+			}
 
-	        for (b2Joint *joint = world.GetJointList(); joint; joint = joint->GetNext()) {
-	            if (joint->GetUserData() == NULL) {
-	                world.DestroyJoint(joint);
-	            }
-	        }
+			for (b2Joint *joint = world.GetJointList(); joint; joint = joint->GetNext()) {
+				if (joint->GetUserData() == NULL) {
+					world.DestroyJoint(joint);
+				}
+			}
 
-	        if (getTime() - lastLeaderboardUpdate > LEADERBOARD_UPDATE_INTERVAL) {
-	            updateLeaderboard();
-	            checkDrain();
-	            lastLeaderboardUpdate = getTime();
-	        }
+			if (getTime() - lastLeaderboardUpdate > LEADERBOARD_UPDATE_INTERVAL) {
+				updateLeaderboard();
+				checkDrain();
+				lastLeaderboardUpdate = getTime();
+			}
 
-	        frameCount++;
+			frameCount++;
 
-	        unsigned long timeSinceLast = getTime() - lastFrame;
+			unsigned long timeSinceLast = getTime() - lastFrame;
 			averageTime = (averageTime + (getTime() - lastCheck)) / 2;
 			lastCheck = getTime();
 
-	        if (timeSinceLast < targetDuration) {
+			if (timeSinceLast < targetDuration) {
 				if ((targetDuration - timeSinceLast) > 0) {
-		            milliseconds intervalDuration(targetDuration - timeSinceLast);
-		            std::this_thread::sleep_for(intervalDuration);
+					milliseconds intervalDuration(targetDuration - timeSinceLast);
+					std::this_thread::sleep_for(intervalDuration);
 				}
 				timeMult = 1;
-	        } else {
-	            timeMult = 1 + (float) (timeSinceLast - targetDuration) / (float) targetDuration;
-	        }
+			} else {
+				timeMult = 1 + (float) (timeSinceLast - targetDuration) / (float) targetDuration;
+			}
 
-	        // timeMult = (float)(getTime() - totalLastFrame) /(float) targetDuration;
-	        lastFrame = getTime();
+			// timeMult = (float)(getTime() - totalLastFrame) /(float) targetDuration;
+			lastFrame = getTime();
 
-	        // if (getTime() - lastTest > 1000) {
-	        //     cout << "(target duration) " << targetDuration << ",(time since last) " << timeSinceLast << endl;
-	        //     cout << "(time since total last frame) " <<(getTime() - totalLastFrame) << ",(target duration) " << targetDuration << endl;
-	        //     cout << "(time mult) " << timeMult << endl;
-	        //     lastTest = getTime();
-	        // }
+			// if (getTime() - lastTest > 1000) {
+			//	 cout << "(target duration) " << targetDuration << ",(time since last) " << timeSinceLast << endl;
+			//	 cout << "(time since total last frame) " <<(getTime() - totalLastFrame) << ",(target duration) " << targetDuration << endl;
+			//	 cout << "(time mult) " << timeMult << endl;
+			//	 lastTest = getTime();
+			// }
 
-	        world.Step(timeStep * timeMult, velocityIterations, positionIterations);
-	    }
-    }
+			world.Step(timeStep * timeMult, velocityIterations, positionIterations);
+		}
+	}
 
-    return 0;
+	return 0;
 }
 
 void resize(int n, int direction) {
@@ -2435,12 +2435,12 @@ void resize(int n, int direction) {
 						x = (float)(rand() /(RAND_MAX /(arenaDelta / 2)) +(height -(arenaDelta / 2)) - width / 2);
 					}
 				}
-		        new Floater(floaterSpawnSeries[fspi], x, y);
-		        fspi++;
-		        if (fspi > FLOATER_SPAWN_SERIES_LENGTH - 1) {
-		            fspi = 0;
-		        }
-		    }
+				new Floater(floaterSpawnSeries[fspi], x, y);
+				fspi++;
+				if (fspi > FLOATER_SPAWN_SERIES_LENGTH - 1) {
+					fspi = 0;
+				}
+			}
 		} else if (shrinking) {
 			//floatersMutex.lock();
 			for (vector<Floater *>::iterator it = floaters.begin(); it != floaters.end(); ) {
@@ -2454,92 +2454,92 @@ void resize(int n, int direction) {
 			//floatersMutex.unlock();
 		}
 
-	    int totalSize = BYTE_SIZE + FLOAT_SIZE + FLOAT_SIZE; // code, width, height
-	    byte *data = static_cast<byte *>(malloc(totalSize));
-	    byte code = SERVER_CODE_RESIZE;
-	    memcpy(data, &code, BYTE_SIZE);
-	    memcpy(data + BYTE_SIZE, &width, FLOAT_SIZE);
-	    memcpy(data + BYTE_SIZE + FLOAT_SIZE, &height, FLOAT_SIZE);
+		int totalSize = BYTE_SIZE + FLOAT_SIZE + FLOAT_SIZE; // code, width, height
+		byte *data = static_cast<byte *>(malloc(totalSize));
+		byte code = SERVER_CODE_RESIZE;
+		memcpy(data, &code, BYTE_SIZE);
+		memcpy(data + BYTE_SIZE, &width, FLOAT_SIZE);
+		memcpy(data + BYTE_SIZE + FLOAT_SIZE, &height, FLOAT_SIZE);
 
 		//playersMutex.lock();
 		for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
-	        Player *p = *it;
-	        p->send(data, totalSize); // Send data
-	    }
+			Player *p = *it;
+			p->send(data, totalSize); // Send data
+		}
 		//playersMutex.unlock();
 
-	    free(data);
+		free(data);
 	}
 }
 
 void fire(Unit *u, float x, float y, float angle) {
 	// if (mode == MODE_FFA || brState == STATE_PLAYING) {
-	    pos velocity = pfa(0, 0, u->angle + M_PI / 2 + angle, u->bulletSpeed);
+		pos velocity = pfa(0, 0, u->angle + M_PI / 2 + angle, u->bulletSpeed);
 		velocity.x += u->v.x;
 		velocity.y += u->v.y;
-	    pos pushVelocity = pfa(0, 0, u->angle + M_PI * 1.5 + angle, u->bulletSpeed / 16);
-	    pos position = pfa(x, y, u->angle + M_PI / 2 + angle, u->size - unitDefs[u->unitType].bulletSize);
-	    if (u->body != NULL) {
-	        u->body->ApplyLinearImpulse({(float) pushVelocity.x,(float) pushVelocity.y}, u->body->GetWorldCenter());
-	    }
-	    Bullet *newBullet = new Bullet(u->owner, position.x, position.y, velocity.x, velocity.y, u->material, unitDefs[u->unitType].bulletSize, u->bulletDamage, u->bulletRange);
-	    // u->owner->children//bulletsMutex.lock();
-	    u->owner->childrenBullets.push_back(newBullet);
-	    // u->owner->children//bulletsMutex.unlock();
+		pos pushVelocity = pfa(0, 0, u->angle + M_PI * 1.5 + angle, u->bulletSpeed / 16);
+		pos position = pfa(x, y, u->angle + M_PI / 2 + angle, u->size - unitDefs[u->unitType].bulletSize);
+		if (u->body != NULL) {
+			u->body->ApplyLinearImpulse({(float) pushVelocity.x,(float) pushVelocity.y}, u->body->GetWorldCenter());
+		}
+		Bullet *newBullet = new Bullet(u->owner, position.x, position.y, velocity.x, velocity.y, u->material, unitDefs[u->unitType].bulletSize, u->bulletDamage, u->bulletRange);
+		// u->owner->children//bulletsMutex.lock();
+		u->owner->childrenBullets.push_back(newBullet);
+		// u->owner->children//bulletsMutex.unlock();
 	// }
 }
 
 bool sorter(Player *a, Player *b) {
-    return a->score > b->score;
+	return a->score > b->score;
 }
 
 void updateLeaderboard() {
-    int dataSize = SHORT_SIZE + INT_SIZE + BYTE_SIZE;
-    int totalSize = BYTE_SIZE + INT_SIZE + (dataSize + MAX_NAME_LENGTH) * LEADERBOARD_NUM; // code, num,(id, score, name length, name)
-    int actualSize = 0;
-    byte *data = static_cast<byte *>(malloc(totalSize));
+	int dataSize = SHORT_SIZE + INT_SIZE + BYTE_SIZE;
+	int totalSize = BYTE_SIZE + INT_SIZE + (dataSize + MAX_NAME_LENGTH) * LEADERBOARD_NUM; // code, num,(id, score, name length, name)
+	int actualSize = 0;
+	byte *data = static_cast<byte *>(malloc(totalSize));
 
-    byte code = SERVER_CODE_LEADERBOARD;
+	byte code = SERVER_CODE_LEADERBOARD;
 
-    int num = LEADERBOARD_NUM;
-    if (players.size() < num) {
-        num = players.size();
-    }
+	int num = LEADERBOARD_NUM;
+	if (players.size() < num) {
+		num = players.size();
+	}
 
-    byte *offset = data;
-    memcpy(offset, &code, BYTE_SIZE);
-    memcpy(offset + BYTE_SIZE, &num, INT_SIZE);
+	byte *offset = data;
+	memcpy(offset, &code, BYTE_SIZE);
+	memcpy(offset + BYTE_SIZE, &num, INT_SIZE);
 
-    offset += BYTE_SIZE + INT_SIZE;
-    actualSize += BYTE_SIZE + INT_SIZE;
-    int i = 0;
+	offset += BYTE_SIZE + INT_SIZE;
+	actualSize += BYTE_SIZE + INT_SIZE;
+	int i = 0;
 
-    //playersMutex.lock();
-    sort(players.begin(), players.end(), sorter);
+	//playersMutex.lock();
+	sort(players.begin(), players.end(), sorter);
 
-    for (vector<Player *>::iterator it = players.begin(); i < num; ++it) {
-        Player *p = *it;
-        byte nameLength = p->name.length();
-        memcpy(offset, &p->id, SHORT_SIZE);
-        memcpy(offset + SHORT_SIZE, &p->score, INT_SIZE);
-        memcpy(offset + SHORT_SIZE + INT_SIZE, &nameLength, BYTE_SIZE);
-        const char *cstr = p->name.c_str();
-        memcpy(offset + SHORT_SIZE + INT_SIZE + BYTE_SIZE, cstr, nameLength);
-        offset += dataSize + nameLength;
-        actualSize += dataSize + nameLength;
-        i++;
-    }
+	for (vector<Player *>::iterator it = players.begin(); i < num; ++it) {
+		Player *p = *it;
+		byte nameLength = p->name.length();
+		memcpy(offset, &p->id, SHORT_SIZE);
+		memcpy(offset + SHORT_SIZE, &p->score, INT_SIZE);
+		memcpy(offset + SHORT_SIZE + INT_SIZE, &nameLength, BYTE_SIZE);
+		const char *cstr = p->name.c_str();
+		memcpy(offset + SHORT_SIZE + INT_SIZE + BYTE_SIZE, cstr, nameLength);
+		offset += dataSize + nameLength;
+		actualSize += dataSize + nameLength;
+		i++;
+	}
 
-    for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
-        Player *p = *it;
-        if (p->hasPlayed && !p->disconnected) {
-            p->send(data, actualSize); // Send data
-        }
-    }
+	for (vector<Player *>::iterator it = players.begin(); it != players.end(); ++it) {
+		Player *p = *it;
+		if (p->hasPlayed && !p->disconnected) {
+			p->send(data, actualSize); // Send data
+		}
+	}
 
-    //playersMutex.unlock();
+	//playersMutex.unlock();
 
-    free(data);
+	free(data);
 }
 
 void updateStatus() {
@@ -2554,48 +2554,48 @@ void updateStatus() {
 		averageTime = 1000;
 	}
 
-    ofstream out;
+	ofstream out;
 	if (mode == MODE_FFA) {
-    	out.open("/var/www/html/status.txt", ios::out | ios::trunc);
+		out.open("/var/www/html/status.txt", ios::out | ios::trunc);
 	} else {
 		out.open("/var/www/html/br.txt", ios::out | ios::trunc);
 	}
-    out << static_cast<int>(players.size()) << "\n" << n << "\n" << VERSION << "\n" << (1000 / averageTime) << "\n" << restarts << "\n" << getTime() << "\n" << totalJoined << endl;
-    out.close();
+	out << static_cast<int>(players.size()) << "\n" << n << "\n" << VERSION << "\n" << (1000 / averageTime) << "\n" << restarts << "\n" << getTime() << "\n" << totalJoined << endl;
+	out.close();
 }
 
 void updateRestarts(int change) {
 	ifstream in;
-    ofstream out;
-    string data;
+	ofstream out;
+	string data;
 	if (mode == MODE_FFA) {
-    	in.open("/var/restarts.txt");
+		in.open("/var/restarts.txt");
 	} else {
 		in.open("/var/restartsbr.txt");
 	}
-    getline(in, data);
+	getline(in, data);
 	restarts = stoi(data);
 	restarts += change;
 	if (mode == MODE_FFA) {
-    	out.open("/var/restarts.txt", ios::out | ios::trunc);
+		out.open("/var/restarts.txt", ios::out | ios::trunc);
 	} else {
 		out.open("/var/restartsbr.txt", ios::out | ios::trunc);
 	}
-    out << restarts << endl;
-    in.close();
-    out.close();
+	out << restarts << endl;
+	in.close();
+	out.close();
 }
 
 float amountScale(float amount, byte material) {
-    return linearScale(amount, material);
+	return linearScale(amount, material);
 }
 
 float costScale(float amount, byte material) {
-    return linearScale(amount, material);//expScale(amount, material);
+	return linearScale(amount, material);//expScale(amount, material);
 }
 
 float rewardScale(float amount, byte material) {
-    return amount;//linearScale(amount, material);
+	return amount;//linearScale(amount, material);
 }
 
 float expScale(float amount, byte material) {
@@ -2607,23 +2607,23 @@ float linearScale(float amount, byte material) {
 }
 
 Unit *findUnitById(unsigned short id) {
-    Unit *unit = NULL;
-    //unitsMutex.lock();
-    for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ++it) {
-        Unit *u = *it;
-        if (u->id == id) {
-            unit = u;
-        }
-    }
-    //unitsMutex.unlock();
-    return unit;
+	Unit *unit = NULL;
+	//unitsMutex.lock();
+	for (vector<Unit *>::iterator it = units.begin(); it != units.end(); ++it) {
+		Unit *u = *it;
+		if (u->id == id) {
+			unit = u;
+		}
+	}
+	//unitsMutex.unlock();
+	return unit;
 }
 
 pos randomSpawnPosition() {
-    pos position;
-    position.x = (float)(rand() /(RAND_MAX / width) - width / 2);
-    position.y = (float)(rand() /(RAND_MAX / height) - height / 2);
-    return position;
+	pos position;
+	position.x = (float)(rand() /(RAND_MAX / width) - width / 2);
+	position.y = (float)(rand() /(RAND_MAX / height) - height / 2);
+	return position;
 }
 
 float afp(float x1, float y1, float x2, float y2) {
@@ -2639,28 +2639,28 @@ float dfp(float x1, float y1, float x2, float y2) {
 };
 
 unsigned long getTime() {
-    return system_clock::now().time_since_epoch() / milliseconds(1);
+	return system_clock::now().time_since_epoch() / milliseconds(1);
 }
 
 float norm(float n) {
-    if (n > M_PI) {
-        n -= M_PI * 2;
-    } else if (n < -M_PI) {
-        n += M_PI * 2;
-    }
-    return n;
+	if (n > M_PI) {
+		n -= M_PI * 2;
+	} else if (n < -M_PI) {
+		n += M_PI * 2;
+	}
+	return n;
 }
 
 void wipeInputs(clientKeys *keys, bool *mouse) {
-    keys->w = false;
-    keys->a = false;
-    keys->s = false;
-    keys->d = false;
-    *mouse = false;
+	keys->w = false;
+	keys->a = false;
+	keys->s = false;
+	keys->d = false;
+	*mouse = false;
 }
 
 void halveStash(int *stash, int socialTotal, string name) {
-    for (int i = 0; i < MATERIAL_NUM - 1; i++) {
+	for (int i = 0; i < MATERIAL_NUM - 1; i++) {
 		// int thisSocialTotal = socialTotal;
 		// if (i == 0) thisSocialTotal += 5;
 		if (stash[i] <= socialTotal) {
@@ -2668,80 +2668,80 @@ void halveStash(int *stash, int socialTotal, string name) {
 		} else {
 			stash[i] = ((stash[i] - socialTotal) / 2) + socialTotal;
 		}
-    }
+	}
 	if (stash[0] < 5) stash[0] = 5;
 	stash[MATERIAL_NUM - 1] = stash[MATERIAL_NUM - 1] / 2;
 	// if (floaterRewardMult != 1 && name.find("8J+kliB") != 0) {
 	// 	for (int i = 0; i < MATERIAL_NUM; i++) {
 	// 		stash[i] = floaterRewardMult;
-	//     }
+	//	 }
 	// }
 }
 
 // int createServerSocket(int port) {
-//     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+//	 int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 //
-//     struct sockaddr_in serverAddress;
-//     memset((char *) &serverAddress, 0, sizeof(serverAddress));
+//	 struct sockaddr_in serverAddress;
+//	 memset((char *) &serverAddress, 0, sizeof(serverAddress));
 //
-//     serverAddress.sin_family = AF_INET;
-//     serverAddress.sin_addr.s_addr = INADDR_ANY;
-//     serverAddress.sin_port = htons(port);
+//	 serverAddress.sin_family = AF_INET;
+//	 serverAddress.sin_addr.s_addr = INADDR_ANY;
+//	 serverAddress.sin_port = htons(port);
 //
-//     int optionValue = 1;
-//     setsockopt(
-//       serverSocket,
-//       SOL_SOCKET,
-//       SO_REUSEADDR,
-//       &optionValue,
-//       sizeof(int)
-//     );
+//	 int optionValue = 1;
+//	 setsockopt(
+//	   serverSocket,
+//	   SOL_SOCKET,
+//	   SO_REUSEADDR,
+//	   &optionValue,
+//	   sizeof(int)
+//	 );
 //
-//     int bindSuccess =
-//       bind(
-//          serverSocket,
-//         (struct sockaddr *) &serverAddress,
-//          sizeof(serverAddress)
-//       );
+//	 int bindSuccess =
+//	   bind(
+//		  serverSocket,
+//		 (struct sockaddr *) &serverAddress,
+//		  sizeof(serverAddress)
+//	   );
 //
-//     return serverSocket;
+//	 return serverSocket;
 // }
 //
 // int waitForConnection(int serverSocket) {
-//     const int serverMaxBacklog = 128;
-//     listen(serverSocket, serverMaxBacklog);
+//	 const int serverMaxBacklog = 128;
+//	 listen(serverSocket, serverMaxBacklog);
 //
-//     struct sockaddr_in clientAddress;
-//     socklen_t clientLen = sizeof(clientAddress);
-//     int connectionSocket =
-//         accept(
-//             serverSocket,
-//            (struct sockaddr *) &clientAddress,
-//             &clientLen
-//         );
+//	 struct sockaddr_in clientAddress;
+//	 socklen_t clientLen = sizeof(clientAddress);
+//	 int connectionSocket =
+//		 accept(
+//			 serverSocket,
+//			(struct sockaddr *) &clientAddress,
+//			 &clientLen
+//		 );
 //
-//     return connectionSocket;
+//	 return connectionSocket;
 // }
 
 void checkDrain() {
-    if (mode == MODE_FFA && draining && players.size() <= 1) {
-        cout << "Exiting due to drain (one or less players left)" << endl;
+	if (mode == MODE_FFA && draining && players.size() <= 1) {
+		cout << "Exiting due to drain (one or less players left)" << endl;
 		updateRestarts(-1);
-        exit(0);
-    }
+		exit(0);
+	}
 }
 
 void sendKill(Player *killer, Player *killed) {
-    byte nameLength = killed->name.length();
-    int totalSize = BYTE_SIZE + BYTE_SIZE + nameLength; // code, name length, name
-    byte *data = static_cast<byte *>(malloc(totalSize));
-    byte code = SERVER_CODE_KILL;
-    memcpy(data, &code, BYTE_SIZE);
-    memcpy(data + BYTE_SIZE, &nameLength, BYTE_SIZE);
-    const char *cstr = killed->name.c_str();
-    memcpy(data + BYTE_SIZE + BYTE_SIZE, cstr, nameLength);
-    killer->send(data, totalSize);
-    free(data);
+	byte nameLength = killed->name.length();
+	int totalSize = BYTE_SIZE + BYTE_SIZE + nameLength; // code, name length, name
+	byte *data = static_cast<byte *>(malloc(totalSize));
+	byte code = SERVER_CODE_KILL;
+	memcpy(data, &code, BYTE_SIZE);
+	memcpy(data + BYTE_SIZE, &nameLength, BYTE_SIZE);
+	const char *cstr = killed->name.c_str();
+	memcpy(data + BYTE_SIZE + BYTE_SIZE, cstr, nameLength);
+	killer->send(data, totalSize);
+	free(data);
 }
 
 void updateBr() {
@@ -2766,7 +2766,7 @@ void updateBr() {
 			if (draining) {
 				cout << "Exiting due to drain (battle royale)" << endl;
 				updateRestarts(-1);
-		        exit(0);
+				exit(0);
 			}
 		}
 	}
