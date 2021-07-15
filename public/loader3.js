@@ -158,7 +158,7 @@ try {
 
 		// TODO: fallback
 		serverFound = true;
-		loadScript("2.13");
+		loadScript("2.14");
 
         // var x = new XMLHttpRequest();
     	// x.onreadystatechange = function() {
@@ -422,7 +422,8 @@ try {
   	}
 } catch(e) {
     setTimeout(function() {
+		console.log(e);
 		if (typeof Raven !== "undefined") Raven.captureException(e);
         window.location.reload(true);
-    }, 1000);
+    }, 3000);
 }

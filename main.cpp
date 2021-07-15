@@ -18,7 +18,7 @@
 #include <fstream>
 #include <unistd.h>
 
-#define VERSION "2.13"
+#define VERSION "2.14"
 
 #define MAX_PLAYERS 60
 #define AREA_PER_PLAYER 1800
@@ -34,9 +34,9 @@
 #define RESIZE_INTERVAL 5
 #define GLITCH_SPEED 6
 #define SHIELD_TIME 30000 // 30 seconds
-#define UNIT_WEIGHT 0.003
-#define WEIGHT_LIMIT 0.5
-#define INITIAL_ACCEL 45
+#define UNIT_WEIGHT 0.006
+#define WEIGHT_LIMIT 1
+#define INITIAL_ACCEL 60//45
 #define BR_MIN_PLAYERS 5
 #define BR_AREA_PER_PLAYER 4000
 #define BR_TIME 240000 // 4 minutes
@@ -73,7 +73,7 @@
 #define UNIT_ANGULAR_DAMPING 2
 
 #define FLOATER_SIZE_NUM 3
-#define FLOATER_DENSITY 0.3
+#define FLOATER_DENSITY 0.15 // 0.3
 #define FLOATER_FRICTION 1
 #define FLOATER_LINEAR_DAMPING 2
 #define FLOATER_ANGULAR_DAMPING 2
@@ -82,7 +82,7 @@
 #define FLOATER_COLLISION_DAMAGE 0.1
 #define FLOATER_KILL_MESSAGE "YSB0cmlhbmdsZQ=="
 
-#define BULLET_DENSITY 0.1
+#define BULLET_DENSITY 0.03 // 0.1
 #define BULLET_FRICTION 1
 
 #define INTERFACE_DRAIN 0
@@ -136,6 +136,7 @@
 #define UNIT_TYPE_NUM 11
 #define UNIT_CORE 0
 #define UNIT_ALCHEMY_LAB 7
+#define UNIT_BOOSTER 8
 
 #define MATERIAL_NUM 6
 #define FLOATER_SPAWN_SERIES_LENGTH 31
@@ -170,6 +171,8 @@ typedef struct _clientKeys {
 	bool a;
 	bool s;
 	bool d;
+	bool q;
+	bool e;
 } clientKeys;
 
 typedef struct _dataPointer {
@@ -277,8 +280,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		500, // reload time
 		true, // buildable
-		18, // hp
-		0.0003, // regen
+		18 * 2, // hp
+		0.0003 * 4, // regen
 		0.5, // bullet damage
 		0.37, // bullet size
 		11, // bullet speed
@@ -297,16 +300,16 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		0, // reload time
 		true, // buildable
-		12, // hp
-		0.0003, // regen
+		12 * 2, // hp
+		0.0003 * 4, // regen
 		-1, // bullet damage
 		-1, // bullet size
 		-1, // bullet speed
 		-1, // bullet range
 		0.1, // collision damage
 		-1, // heal
-		0, // speed boost
-		0, // speed boost upgrade
+		0, //  boost
+		0, //  boost upgrade
 		SHAPE_CIRCLE, // shape
 		0 // spin animation
 	},
@@ -317,16 +320,16 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		500, // reload time
 		true, // buildable
-		6, // hp
-		0.0003, // regen
+		6 * 2, // hp
+		0.0003 * 4, // regen
 		0.25, // bullet damage
 		0.37, // bullet size
-		11, // bullet speed
+		11, // bullet
 		12, // bullet range
 		0.1, // collision damage
 		-1, // heal
-		0, // speed boost
-		0, // speed boost upgrade
+		0, //  boost
+		0, //  boost upgrade
 		SHAPE_CIRCLE, // shape
 		0 // spin animation
 	},
@@ -337,15 +340,15 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		800, // reload time
 		true, // buildable
-		6, // hp
-		0.0003, // regen
+		6 * 2, // hp
+		0.0003 * 4, // regen
 		0.25, // bullet damage
 		0.3, // bullet size
-		12, // bullet speed
+		12, // bullet
 		15, // bullet range
 		0.1, // collision damage
 		-1, // heal
-		0, // speed boost
+		0, //  boost
 		0, // speed boost upgrade
 		SHAPE_CIRCLE, // shape
 		0 // spin animation
@@ -357,8 +360,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		250, // reload time
 		true, // buildable
-		7, // hp
-		0.0003, // regen
+		7 * 2, // hp
+		0.0003 * 4, // regen
 		0.2, // bullet damage
 		0.2, // bullet size
 		11, // bullet speed
@@ -377,8 +380,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		700, // reload time
 		true, // buildable
-		8, // hp
-		0.0003, // regen
+		8 * 2, // hp
+		0.0003 * 4, // regen
 		0.7, // bullet damage
 		0.5, // bullet size
 		10, // bullet speed
@@ -395,10 +398,10 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		1, // size
 		false, // manual activate
 		true, // auto activate
-		3000, // reload time
+		2000, // reload time
 		true, // buildable
-		10, // hp
-		0.0003, // regen
+		10 * 2, // hp
+		0.0003 * 4, // regen
 		-1, // bullet damage
 		-1, // bullet size
 		-1, // bullet speed
@@ -415,10 +418,10 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		1, // size
 		false, // manual activate
 		true, // auto activate
-		3000, // reload time
+		2000, // reload time
 		true, // buildable
-		10, // hp
-		0.0003, // regen
+		10 * 2, // hp
+		0.0003 * 4, // regen
 		-1, // bullet damage
 		-1, // bullet size
 		-1, // bullet speed
@@ -437,8 +440,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		0, // reload time
 		true, // buildable
-		10, // hp
-		0.0003, // regen
+		10 * 2, // hp
+		0.0003 * 4, // regen
 		-1, // bullet damage
 		-1, // bullet size
 		-1, // bullet speed
@@ -457,8 +460,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		1500, // reload time
 		true, // buildable
-		8, // hp
-		0.0003, // regen
+		8 * 2, // hp
+		0.0003 * 4, // regen
 		0.15, // bullet damage
 		0.2, // bullet size
 		11, // bullet speed
@@ -477,8 +480,8 @@ unitDef unitDefs[UNIT_TYPE_NUM] = {
 		false, // auto activate
 		0, // reload time
 		false, // buildable
-		16, // hp
-		0.0003, // regen
+		16 * 2, // hp
+		0.0003 * 4, // regen
 		-1, // bullet damage
 		-1, // bullet size
 		-1, // bullet speed
@@ -844,6 +847,8 @@ public:
 		keys.a = false;
 		keys.s = false;
 		keys.d = false;
+		keys.q = false;
+		keys.e = false;
 		mouse = false;
 		scale = 1;
 		usingJoystick = false;
@@ -950,6 +955,16 @@ public:
 				// }
 
 				core->body->ApplyForce(b2Vec2(nvx, nvy), core->body->GetWorldCenter());
+
+				double rotationForce = 80 * childrenUnits.size();
+
+				if (keys.q && !keys.e) {
+					core->body->ApplyTorque(-rotationForce);
+				} else if (keys.e && !keys.q) {
+					core->body->ApplyTorque(rotationForce);
+				} else {
+					core->body->ApplyTorque(0);
+				}
 
 				if (mouse) {
 					core->activate();
@@ -1069,6 +1084,10 @@ public:
 			keys.s = state;
 		} else if (code == 68 || code == 39) {
 			keys.d = state;
+		} else if (code == 81) {
+			keys.q = state;
+		} else if (code == 69) {
+			keys.e = state;
 		} else if (code == 1) {
 			mouse = state;
 		}
@@ -1151,11 +1170,11 @@ public:
 	}
 
 	void build(unsigned short id, byte type, byte material, float angle) {
-		if ((mode == MODE_FFA || brState == STATE_PLAYING) && childrenUnits.size() < UNIT_LIMIT && type != UNIT_CORE && type > 0 && type < UNIT_TYPE_NUM && material >= 0 && material < MATERIAL_NUM) {
+		if ((mode == MODE_FFA || brState == STATE_PLAYING) && childrenUnits.size() < UNIT_LIMIT && type != UNIT_CORE && type != UNIT_BOOSTER && type > 0 && type < UNIT_TYPE_NUM && material >= 0 && material < MATERIAL_NUM - 1) {
 			int actualCost = (int) costScale((float) unitDefs[type].cost, material);
 			if (actualCost <= stash[material]) {
 				Unit *unit = findUnitById(id);
-				if (unit != NULL && unit->buildable) {
+				if (unit != NULL && unit->buildable && unit->owner == this) {
 					pos position = pfa(unit->x, unit->y, angle, unit->size + unitDefs[type].size);
 					bool withinOther = false;
 					if (unit != core && core != NULL) {
@@ -1195,14 +1214,16 @@ public:
 	void upgrade(unsigned short id) {
 		if (mode == MODE_FFA || brState == STATE_PLAYING) {
 			Unit *u = findUnitById(id);
-			if (u != NULL) {
-				int actualCost = (int)(costScale(unitDefs[u->unitType].cost, u->material + 1) - costScale(unitDefs[u->unitType].cost, u->material) / 4);
-				if (actualCost <= u->owner->stash[u->material + 1] && !(u->unitType == UNIT_ALCHEMY_LAB && u->material == MATERIAL_NUM - 2)) {
-					u->material++;
-					u->updateStats();
-					u->owner->stash[u->material] -= actualCost;
-					emitStash(1);
-					calculateWeight();
+			if (u != NULL && u->owner == this) {
+				if (u->material < MATERIAL_NUM - 1) {
+					int actualCost = (int)(costScale(unitDefs[u->unitType].cost, u->material + 1) - costScale(unitDefs[u->unitType].cost, u->material) / 4);
+					if (actualCost <= u->owner->stash[u->material + 1] && !(u->unitType == UNIT_ALCHEMY_LAB && u->material == MATERIAL_NUM - 2)) {
+						u->material++;
+						u->updateStats();
+						u->owner->stash[u->material] -= actualCost;
+						emitStash(1);
+						calculateWeight();
+					}
 				}
 			}
 		}
@@ -1210,7 +1231,7 @@ public:
 
 	void deleteUnit(unsigned short id) {
 		Unit *u = findUnitById(id);
-		if (u != NULL && u->unitType != UNIT_CORE) {
+		if (u != NULL && u->unitType != UNIT_CORE && u->owner == this) {
 			stash[u->material] += costScale(unitDefs[u->unitType].cost, u->material) / 2;
 			emitStash(1);
 			delete u;
@@ -1651,11 +1672,11 @@ void activateAlchemyLab(Unit *u) {
 		int ownAmount = 0;
 		int targetAmount = 0;
 		if (u->alchemyCycle > targetMaterial) {
-			ownAmount = expScale(1, u->alchemyCycle - targetMaterial);
+			ownAmount = costScale(1, u->alchemyCycle - targetMaterial); // TODO
 			targetAmount = 1;
 		} else {
 			ownAmount = 1;
-			targetAmount = expScale(1, targetMaterial - u->alchemyCycle);
+			targetAmount = costScale(1, targetMaterial - u->alchemyCycle); // TODO
 		}
 		if (u->alchemyCycle != targetMaterial && u->owner->stash[u->alchemyCycle] >= targetAmount) {
 			u->owner->stash[targetMaterial] += ownAmount;
@@ -2178,7 +2199,9 @@ int main(int argc, char *argv[]) {
 					float thrust = 0;
 					memcpy(&angle, &data[BYTE_SIZE], FLOAT_SIZE);
 					memcpy(&thrust, &data[BYTE_SIZE + FLOAT_SIZE], FLOAT_SIZE);
-					p->moveEvent(angle, thrust);
+					if (isfinite(angle) && isfinite(thrust)) {
+						p->moveEvent(angle, thrust);
+					}
 				} else if (code == CLIENT_CODE_BUILD && length == CLIENT_LENGTH_BUILD) {
 					unsigned short id = 0;
 					byte type = 0;
@@ -2188,7 +2211,9 @@ int main(int argc, char *argv[]) {
 					memcpy(&type, &data[BYTE_SIZE + SHORT_SIZE], BYTE_SIZE);
 					memcpy(&material, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE], BYTE_SIZE);
 					memcpy(&angle, &data[BYTE_SIZE + SHORT_SIZE + BYTE_SIZE + BYTE_SIZE], FLOAT_SIZE);
-					p->build(id, type, material, angle);
+					if (isfinite(angle)) {
+						p->build(id, type, material, angle);
+					}
 				} else if (code == CLIENT_CODE_UPGRADE && length == CLIENT_LENGTH_UPGRADE) {
 					unsigned short id = 0;
 					memcpy(&id, &data[BYTE_SIZE], SHORT_SIZE);
@@ -2560,7 +2585,7 @@ void updateStatus() {
 	} else {
 		out.open("/var/www/html/br.txt", ios::out | ios::trunc);
 	}
-	out << static_cast<int>(players.size()) << "\n" << n << "\n" << VERSION << "\n" << (1000 / averageTime) << "\n" << restarts << "\n" << getTime() << "\n" << totalJoined << endl;
+	out << static_cast<int>(players.size()) << "\n" << n << "\n" << VERSION << "\n" << "69" << "\n" << restarts << "\n" << getTime() << "\n" << totalJoined << "\n" << ".3" << endl;
 	out.close();
 }
 
@@ -2587,7 +2612,7 @@ void updateRestarts(int change) {
 }
 
 float amountScale(float amount, byte material) {
-	return linearScale(amount, material);
+	return amount + amount * material * 0.25;//linearScale(amount, material);
 }
 
 float costScale(float amount, byte material) {
@@ -2642,13 +2667,16 @@ unsigned long getTime() {
 	return system_clock::now().time_since_epoch() / milliseconds(1);
 }
 
+float wrapMax(double x, double max) {
+	return fmod(max + fmod(x, max), max);
+}
+
+double wrapMinMax(double x, double min, double max) {
+	return min + wrapMax(x - min, max - min);
+}
+
 float norm(float n) {
-	if (n > M_PI) {
-		n -= M_PI * 2;
-	} else if (n < -M_PI) {
-		n += M_PI * 2;
-	}
-	return n;
+	return wrapMinMax(n, -M_PI, M_PI);
 }
 
 void wipeInputs(clientKeys *keys, bool *mouse) {
@@ -2656,6 +2684,8 @@ void wipeInputs(clientKeys *keys, bool *mouse) {
 	keys->a = false;
 	keys->s = false;
 	keys->d = false;
+	keys->q = false;
+	keys->e = false;
 	*mouse = false;
 }
 
@@ -2724,7 +2754,7 @@ void halveStash(int *stash, int socialTotal, string name) {
 // }
 
 void checkDrain() {
-	if (mode == MODE_FFA && draining && players.size() <= 1) {
+	if (mode == MODE_FFA && draining && totalJoined <= 1) {
 		cout << "Exiting due to drain (one or less players left)" << endl;
 		updateRestarts(-1);
 		exit(0);
