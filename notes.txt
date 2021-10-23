@@ -1,9 +1,12 @@
+Local testing: http://localhost:3000/#7f000001
+
 RUN GAME SERVER IN SUDO BECAUSE IT LISTENS ON PORT 80 (e.g. io1 go debug, io1 run)
 
 WHEN DEPLOYING:
 	- Compile game (with debug mode)
 	- Deploy game binary
 	- DEPLOY STATIC FILES
+    - MANUALLY CHANGE VERSION FOR PARTY LINKS IN LOADER3.JS
 
 REMEMBER TO UPLOAD SERVERLIST.JS WHEN UPDATING BALANCER
 CORS NOT WORKING?
@@ -72,7 +75,7 @@ Notes:
 	- Build for Android: phonegap build android --release -- --keystore=../io1_keystore.keystore --storePassword=password --alias=io1_alias --password=password
 	- AdMob ID: ca-app-pub-5728247954177044~7236949357
 	- Debugging: gdb -batch -ex "run" -ex "bt" ${my_program} 2>&1 | grep -v ^"No stack."$
-	- Local testing: http://localhost/#7f000001
+	- Local testing: http://localhost:3000/#7f000001
 	- Connected users: netstat -anpt 2>&1 | tail -n +5 | sort -k7,7 -k 6,6
 	- Godenot published at 12am-1am
 	- Patron server: 45.33.61.138 (#2d213d8a)

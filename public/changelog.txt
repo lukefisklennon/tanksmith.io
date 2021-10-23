@@ -1,6 +1,8 @@
 ===== Changelog =====
 
-Note: all updates take up to 24 hours to fully deploy
+2.14 (July 16, 2021)
+  - Tank rotation with the Q and E keys
+  - Autofire is now enabled with the F key
 
 2.13 (October 4, 2018)
   - Battle Royale mode

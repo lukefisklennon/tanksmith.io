@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"iosfwd": "cpp",
+		"xlocale": "cpp",
+		"xstring": "cpp"
+	}
+}

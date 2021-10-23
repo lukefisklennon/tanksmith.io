@@ -2,13 +2,14 @@
 	<head>
 		<title>Tanksmith.io</title>
 		<meta charset="utf-8">
+
 		<link rel="stylesheet" type="text/css" href="style.css"/>
 		<link href="https://fonts.googleapis.com/css?family=Baloo|Gugi|Ubuntu" rel="stylesheet">
-		<meta name="description" content="BATTLE ROYALE mode out now! Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid."/>
+		<meta name="description" content="Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid."/>
 		<meta name="keywords" content="tanksmith.io,tanksmithio,game io,io,.io,io games,.io games,multiplayer,multiplayer games,browser games,mmo,browser mmo,casual multiplayer,html5,html5 games,games,online,online games,io ninja,ioninja,ninja,td,tower defense,tower defence,tanks,tank,tank shooter,battle royale,battle,royale,battle royal,royal,io royale,io battle royale"/>
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, viewport-fit=cover">
-		<script async src="//api.adinplay.com/display/pub/TRG/tanksmith.io/display.min.js"></script>
-		<script async src="//api.adinplay.com/player/v2/TRG/tanksmith.io/player.min.js"></script>
+
+		<script async src="//api.adinplay.com/libs/aiptag/pub/TRG/tanksmith.io/tag.min.js"></script>
 		<script>
 		function checkMobile() {
 			var check = false;
@@ -43,10 +44,12 @@
 		var continueToPlay = function() {};
 
 		if (window.location.hostname != "localhost" && pqs(window.location.search.substring(1)).source != "app") {
-			var aiptag = aiptag || {};
-			aiptag.cmd = aiptag.cmd || [];
-			aiptag.cmd.player = aiptag.cmd.player || [];
-			aiptag.cmd.display = aiptag.cmd.display || [];
+			window.aiptag = window.aiptag || {cmd: []};
+			aiptag.cmd.display = aiptag.cmd.display || [];	aiptag.cmd.player = aiptag.cmd.player || [];
+			// Show GDPR consent tool
+			aiptag.gdprShowConsentTool = false;
+			aiptag.gdprConsent = false;
+			// If you use your own GDPR consent tool please set aiptag.gdprConsent = false; if an EU user has declined or not yet accepted marketing cookies, for users outside the EU or for users that accepted the GDPR please use aiptag.gdprConsent = true;
 
 			aiptag.cmd.player.push(function() {
 				adplayer = new aipPlayer({
@@ -54,21 +57,21 @@
 					AD_HEIGHT: 540,
 					AD_FULLSCREEN: false,
 					AD_CENTERPLAYER: false,
-					LOADING_TEXT: 'loading advertisement',
+					LOADING_TEXT: 'Loading',
 					PREROLL_ELEM: function(){return document.getElementById('preroll')},
 					AIP_COMPLETE: function ()  {
 						/*******************
 						 ***** WARNING *****
-						 *******************
-						 Please do not remove the PREROLL_ELEM
-						 from the page, it will be hidden automaticly.
-						 If you do want to remove it use the AIP_REMOVE callback
+						*******************
+						Please do not remove the PREROLL_ELEM
+						from the page, it will be hidden automaticly.
+						If you do want to remove it use the AIP_REMOVE callback.
 						*/
 						continueToPlay();
 					},
 					AIP_REMOVE: function ()  {
-						// Here it's save to remove the PREROLL_ELEM from the page
-						// But it's not necessary
+						// Here it's save to remove the PREROLL_ELEM from the page.
+						// But it's not necessary.
 					}
 				});
 			});
@@ -100,14 +103,14 @@
 
 		<meta name="author" content="iO Ninja"/>
 		<meta property="og:title" content="Tanksmith.io"/>
-		<meta property="og:image" content="http://tanksmith.io/promo.jpg"/>
-		<meta property="og:description" content="BATTLE ROYALE mode out now! Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid."/>
+		<meta property="og:image" content="http://tanksmith.io/thumbnail.jpg"/>
+		<meta property="og:description" content="Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid."/>
 		<meta name="twitter:card" content="summary_large_image">
 		<meta name="twitter:site" content="http://tanksmith.io/">
 		<meta name="twitter:creator" content="@ioninja14">
 		<meta name="twitter:title" content="Tanksmith.io">
-		<meta name="twitter:description" content="BATTLE ROYALE mode out now! Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid.">
-		<meta name="twitter:image" content="http://tanksmith.io/promo.jpg">
+		<meta name="twitter:description" content="Free multiplayer. Build your tank, battle other players and become massive. Original tank-shooter/tower-defense hybrid.">
+		<meta name="twitter:image" content="http://tanksmith.io/thumbnail.jpg">
 		<link rel="manifest" href="manifest.json">
 
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117581654-1"></script>
@@ -162,6 +165,8 @@
 						<div id="help-inner">
 							WASD or arrow keys <span class="minor">to move</span>
 							<br>
+							<!-- Q and E <span class="minor">to rotate</span> -->
+							<!-- <br> -->
 							Move your mouse <span class="minor">to aim</span>
 							<br>
 							Left click <span class="minor">to fire</span>
@@ -172,9 +177,11 @@
 							<br>
 							Select a unit from the store <span class="minor">and click to place it</span>
 							<br>
+							Escape key <span class="minor">to cancel placing it</span>
+							<br>
 							Collect better resources <span class="minor">to build better units</span>
 							<br>
-							E key <span class="minor">to enable autofire</span>
+							Press F <span class="minor">to <s>pay respects</s> enable autofire</span>
 							<br>
 							Click a unit in your tank <span class="minor">to upgrade or destroy it</span>
 							<br>
@@ -188,7 +195,7 @@
 					<div class="card main">
 						<div id="respawn-info"></div>
 						<div style="font-size:18px;margin-bottom:7px;display:none;">
-							<span style="background-color:#3399ff;color:white;border-radius:3px;padding:3px;font-size:15px;position:relative;bottom:1px;">UPDATE</span> Players are now protected from damage until they start building units</a>
+							<span style="background-color:#3399ff;color:white;border-radius:5px;padding:3px;font-size:15px;position:relative;bottom:1px;">NEW</span> Press Q and E to rotate your tank</a>
 						</div>
 						<!--<div style="font-size:10px;color:red;position:relative;left:75%;transform:translateX(-50%);margin-bottom:3px;">NEW GAME MODE</div>-->
 						<div id="mode-selector">
@@ -221,19 +228,20 @@
 			</div>
 			<!-- <div class="card ad" id="ad-bottom"> -->
 			<!-- <img src="http://via.placeholder.com/728x90?text=Advertisement" id="ad-leaderboard" class="ad"> -->
-			<div id='tanksmith-io_300x250' class="ad">
-				<script type='text/javascript'>
-					// if (window.location.hostname != "localhost" && pqs(window.location.search.substring(1)).source != "app") {
-					// 	console.log("Loading banner ad");
-					// 	aiptag.cmd.display.push(function() { aipDisplayTag.display('tanksmith-io_300x250'); });
-					// }
-				</script>
-			</div>
+			<div id="tanksmith-io_300x250" class="ad"></div>
+			<script type='text/javascript'>
+				aiptag.cmd.display.push(function() { aipDisplayTag.display('tanksmith-io_300x250'); });
+				if (!checkMobile()) {
+					document.getElementById("menu").innerHTML += '<div id="tanksmith-io_728x90" class="ad"></div>';
+				}
+				aiptag.cmd.display.push(function() { aipDisplayTag.display('tanksmith-io_728x90'); });
+			</script>
+
 			<!-- </div> -->
 			<div id="links">
 				<div class="card" id="youtuber" style="display:none;"></div>
 				<div class="card" id="links-bar">
-					<a href="http://iogames.space/" target="_blank">More games</a> | <a href="https://www.reddit.com/r/tanksmithio/" target="_blank">Reddit</a> | <a href="changelog.txt" target="_blank">Changelog</a> | <a href="mailto:ioninja14@gmail.com" target="_blank">Contact</a> | <a href="privacy.txt" target="_blank">Privacy</a> | <a href="https://twitter.com/ioninja14" target="_blank"><div id="logo" class="logo baloo" style="display:inline;"><span class="ionorange">iO</span>NINJA</div></a>
+					<a href="changelog.txt" target="_blank">Changelog</a> | <a href="mailto:ioninja14@gmail.com" target="_blank">Contact</a> | <a href="privacy.txt" target="_blank">Privacy</a> | By <a href="https://twitter.com/ioninja14" target="_blank"><div id="logo" class="logo baloo" style="display:inline;"><span class="ionorange">iO</span>NINJA</div></a> (Luke Fisk-Lennon)
 				</div>
 			</div>
 			<div id="version"></div>
