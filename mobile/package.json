@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "cordova-admob-sdk": "^0.16.0",
-    "cordova-android": "~6.3.0",
+    "cordova-android": "~12.0.0",
     "cordova-plugin-admob-free": "file:../../cordova-plugin-admob-free",
     "cordova-plugin-battery-status": "~1.2.4",
     "cordova-plugin-camera": "~2.4.1",
